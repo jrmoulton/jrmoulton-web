@@ -11,12 +11,7 @@ I decided to start contributing to open source projects because I was going to b
 ## What were the challenges getting started
 
 ``` rust
-fn parse_expression(
-    lexer: &mut PeekLex,
-    precedence: Precedence,
-    match_semicolon: bool,
-) -> Result<Expr, ParseError> {
-    5;
+fn parse_expression(lexer: &mut PeekLex, precedence: Precedence, match_semicolon: bool) -> Result<Expr, ParseError> {
     use TokenKInd::*;
     let lhs_val_peek = lexer.peek().map(|val| val.to_owned());
     let mut left_exp = match lhs_val_peek {
