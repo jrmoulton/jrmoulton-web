@@ -1,44 +1,60 @@
 use pulldown_cmark::{CodeBlockKind, Event};
 
 fn main() {
-    let input = std::fs::read_to_string("./content/starting_open_source.md").unwrap();
-    let mut next_lang = String::new();
-    let custom = tree_painter::Theme::from_helix(include_str!("../themes/onedark.toml")).unwrap();
-    let mut renderer = tree_painter::Renderer::new(custom);
+    for file in std::fs::read_dir("./content/").unwrap() {
+        let file = file.unwrap();
+        let input = std::fs::read_to_string(file.path()).unwrap();
+        let mut next_lang = String::new();
+        let custom =
+            tree_painter::Theme::from_helix(include_str!("../themes/onedark.toml")).unwrap();
+        let mut renderer = tree_painter::Renderer::new(custom);
 
-    let parser = pulldown_cmark::Parser::new(&input).map(|event| match event {
-        Event::Start(pulldown_cmark::Tag::CodeBlock(CodeBlockKind::Fenced(lang))) => {
-            next_lang = lang.to_string();
-            Event::SoftBreak
-        }
-        Event::Text(code) if !next_lang.is_empty() => {
-            let rust_lang = tree_painter::Lang::Rust;
-            let mut code_str = String::new();
-            code_str.push_str(&renderer.render(&rust_lang, code.as_bytes()).unwrap());
-            Event::Html(code_str.into())
-        }
-        Event::End(pulldown_cmark::Tag::CodeBlock(CodeBlockKind::Fenced(lang)))
-            if lang.to_string() == next_lang =>
-        {
-            next_lang = "".to_string();
-            Event::SoftBreak
-        }
-        _ => event,
-    });
-    let mut mark_out = String::new();
-    pulldown_cmark::html::push_html(&mut mark_out, parser);
-    let final_output = String::from(&format!(
-        r#"
-    <!DOCTYPE html>
-    <head>
+        let parser = pulldown_cmark::Parser::new(&input).map(|event| match event {
+            Event::Start(pulldown_cmark::Tag::CodeBlock(CodeBlockKind::Fenced(lang))) => {
+                next_lang = lang.to_string();
+                Event::SoftBreak
+            }
+            Event::Text(code) if !next_lang.is_empty() => {
+                if next_lang == "date" {
+                    Event::Html(format!(r#"<div class="date">{}</div>"#, code.trim()).into())
+                } else {
+                    let lang = tree_painter::Lang::from_name(&next_lang).unwrap();
+                    let mut code_str = String::new();
+                    code_str.push_str(&renderer.render(&lang, code.as_bytes()).unwrap());
+                    Event::Html(code_str.into())
+                }
+            }
+            Event::End(pulldown_cmark::Tag::CodeBlock(CodeBlockKind::Fenced(lang)))
+                if lang.to_string() == next_lang =>
+            {
+                next_lang = "".to_string();
+                Event::SoftBreak
+            }
+            _ => event,
+        });
+        let mut mark_out = String::new();
+        pulldown_cmark::html::push_html(&mut mark_out, parser);
+        let final_output = String::from(&format!(
+            r#"
+<!DOCTYPE html>
+<head>
     <title>tree-painter highlighting</title>
     <link rel="stylesheet" href="common.css">
-    </head>
-    <body>
-    {mark_out}
-    </body>
+</head>
+<body>
+    <div class="page-section">
+        {mark_out}
+    </div>
+</body>
     "#
-    ));
-    // final_output.push_str(&html_out.to_string());
-    std::fs::write("out.html", final_output).unwrap()
+        ));
+        std::fs::write(
+            format!(
+                "build/{}.html",
+                file.path().file_stem().unwrap().to_str().unwrap()
+            ),
+            final_output,
+        )
+        .unwrap()
+    }
 }
