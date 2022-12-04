@@ -39,7 +39,7 @@ fn main() {
 <!DOCTYPE html>
 <head>
     <title>tree-painter highlighting</title>
-    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="styles/common.css">
 </head>
 <body>
     <div class="page-section">
