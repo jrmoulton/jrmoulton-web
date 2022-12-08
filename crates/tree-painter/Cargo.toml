@@ -1,0 +1,78 @@
+[package]
+name = "tree-painter"
+version = "0.0.0"
+edition = "2021"
+description = "a source code syntax highlighting library based on tree-sitter and Helix editor themes and rendering to HTML and CSS"
+documentation = "https://docs.rs/tree-painter"
+readme = "README.md"
+repository = "https://github.com/matze/tree-painter"
+license = "MIT"
+
+[dependencies]
+thiserror = "1.0.37"
+toml = { version = "0.5.9" }
+tree-sitter-highlight = "0.20.1"
+tree-sitter-bash = { version = "0.19.0", optional = true }
+tree-sitter-c = {version = "0.20.2", optional = true}
+tree-sitter-c-sharp = { version = "0.20.0", optional = true }
+# tree-sitter-clojure = { version = "0.20.2", optional = true }
+tree-sitter-cpp = { version = "0.20.0", optional = true }
+# tree-sitter-css = { version = "0.20.2", optional = true }
+tree-sitter-dockerfile = { version = "0.1.0", optional = true }
+tree-sitter-go = { version = "0.19.1", optional = true }
+# tree-sitter-haskell = { version = "0.20.2", optional = true }
+tree-sitter-html = { version = "0.19.0", optional = true }
+tree-sitter-java = { version = "0.20.0", optional = true }
+tree-sitter-javascript = { version = "0.20.0", optional = true }
+tree-sitter-json = { version = "0.19.0", optional = true }
+# tree-sitter-julia = { version = "0.20.2", optional = true }
+tree-sitter-kotlin = { version = "0.2.11", optional = true }
+# tree-sitter-latex = { version = "0.20.2", optional = true }
+tree-sitter-lua = { version = "0.0.14", optional = true }
+tree-sitter-md = { version = "0.1.2", optional = true }
+# tree-sitter-nix = { version = "0.20.2", optional = true }
+# tree-sitter-ocaml = { version = "0.19.0", optional = true }
+# tree-sitter-perl = { version = "0.20.2", optional = true }
+# tree-sitter-php = { version = "0.20.2", optional = true }
+tree-sitter-python = { version = "0.20.1", optional = true }
+tree-sitter-ruby = { version = "0.20.0", optional = true }
+tree-sitter-rust = { version = "0.20.2", optional = true }
+# tree-sitter-scala = { version = "0.20.2", optional = true }
+tree-sitter-swift = { version = "0.3.4", optional = true }
+tree-sitter-typescript = { version = "0.20.1", optional = true }
+# tree-sitter-zig = { version = "0.20.2", optional = true }
+
+[features]
+default = [
+    # "tree-sitter-bash",
+    # "tree-sitter-c",
+    # "tree-sitter-c-sharp",
+    # # "tree-sitter-clojure",
+    # "tree-sitter-cpp",
+    # # "tree-sitter-css",
+    # "tree-sitter-dockerfile",
+    # "tree-sitter-go",
+    # # "tree-sitter-haskell",
+    # "tree-sitter-html",
+    # "tree-sitter-java",
+    # "tree-sitter-javascript",
+    # "tree-sitter-json",
+    # # "tree-sitter-julia",
+    # "tree-sitter-kotlin",
+    # # "tree-sitter-latex",
+    # "tree-sitter-lua",
+    # "tree-sitter-md",
+    # # "tree-sitter-nix",
+    # # "tree-sitter-ocaml",
+    # # "tree-sitter-perl",
+    # # "tree-sitter-php",
+    # "tree-sitter-python",
+    # "tree-sitter-ruby",
+    # "tree-sitter-rust",
+    # # "tree-sitter-scala",
+    # "tree-sitter-swift",
+    # "tree-sitter-typescript",
+    # # "tree-sitter-zig",
+    # "themes",
+]
+themes = []

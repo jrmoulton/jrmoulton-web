@@ -7,6 +7,6 @@ edition = "2021"
 
 [dependencies]
 pulldown-cmark = "0.9.2"
-tree-painter = { path="../../../tree-painter/upsteam/lib", default-features = false, features = ["tree-sitter-rust", "tree-sitter-c", "tree-sitter-cpp", "tree-sitter-java"] }
+tree-painter = { path = "../tree-painter/", default-features = false, features = ["tree-sitter-rust", "tree-sitter-c", "tree-sitter-cpp", "tree-sitter-java"] }
 titlecase = "2.2.1"
 # tree-painter = {version="0", default-features = false, features = ["tree-sitter-rust", "tree-sitter-c", "tree-sitter-cpp"] }
