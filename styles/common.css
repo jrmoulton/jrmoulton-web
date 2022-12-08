@@ -2,6 +2,10 @@
     --content-width: 730px;
 }
 
+html {
+    font-size: 62.5%rem;
+}
+
 body {
     color: var(--tsc-main-fg-color);
     margin: 0;
@@ -9,7 +13,6 @@ body {
         Roboto, Oxygen-Sans, Ubuntu, Cantarell,
         "Helvetica Neue", sans-serif;
     background-color: var(--tsc-main-bg-color);
-    font-size: 1.1rem;
 }
 
 a {
@@ -28,7 +31,7 @@ a {
 }
 
 .header a {
-    font-size: 0.95rem;
+    font-size: 1.3rem;
     padding: 0 0.5rem;
     height: 100%;
     display: flex;

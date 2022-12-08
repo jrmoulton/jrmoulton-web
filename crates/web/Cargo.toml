@@ -6,6 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+futures = "0.3.25"
 axum = {version = "0.6.1" }
 axum-extra = { version = "0.4.2", features = ["spa"] }
 tokio = { version = "1.0", features = ["full"] }
@@ -13,3 +14,4 @@ tower = { version = "0.4", features = ["util"] }
 tower-http = { version = "0.3.0", features = ["fs", "trace"] }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+notify = { version = "5.0.0", default-features = true }

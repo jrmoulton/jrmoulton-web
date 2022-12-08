@@ -4,12 +4,14 @@ use axum::{
     routing::{get, get_service},
     Router,
 };
+use notify::{Config, Event, RecommendedWatcher, RecursiveMode, Watcher};
+use std::path::Path;
 use std::{io, net::SocketAddr};
+use tokio::sync::mpsc::{channel, Receiver};
 use tower_http::{services::ServeDir, trace::TraceLayer};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 #[tokio::main]
-
 async fn main() {
     tracing_subscriber::registry()
         .with(
@@ -19,7 +21,13 @@ async fn main() {
         .with(tracing_subscriber::fmt::layer())
         .init();
 
-    tokio::join!(serve(using_serve_dir(), 3007));
+    tokio::join!(
+        serve(using_serve_dir(), 2999),
+        async_watch("content/"),
+        async_watch("styles/"),
+        async_watch("themes/"),
+        async_watch("templates/"),
+    );
 }
 
 fn using_serve_dir() -> Router {
@@ -45,4 +53,58 @@ async fn serve(app: Router, port: u16) {
         .serve(app.layer(TraceLayer::new_for_http()).into_make_service())
         .await
         .unwrap();
+}
+
+fn async_watcher() -> notify::Result<(RecommendedWatcher, Receiver<notify::Result<Event>>)> {
+    let (tx, rx) = channel(1);
+
+    // Automatically select the best implementation for your platform.
+    // You can also access each implementation directly e.g. INotifyWatcher.
+    let watcher = RecommendedWatcher::new(
+        move |res| {
+            futures::executor::block_on(async {
+                tx.send(res).await.unwrap();
+            })
+        },
+        Config::default(),
+    )?;
+
+    Ok((watcher, rx))
+}
+
+async fn async_watch<P: AsRef<Path>>(path: P) {
+    let (mut watcher, mut rx) = async_watcher().unwrap();
+
+    // Add a path to be watched. All files and directories at that path and
+    // below will be monitored for changes.
+    watcher
+        .watch(path.as_ref(), RecursiveMode::Recursive)
+        .unwrap();
+
+    while let Some(res) = rx.recv().await {
+        match res {
+            Ok(event) => match event.kind {
+                notify::EventKind::Create(_)
+                | notify::EventKind::Modify(_)
+                | notify::EventKind::Remove(_) => {
+                    tokio::process::Command::new("cargo")
+                        .arg("r")
+                        .arg("-r")
+                        .arg("--bin")
+                        .arg("gen")
+                        .stdin(std::process::Stdio::null())
+                        .stdout(std::process::Stdio::null())
+                        .stderr(std::process::Stdio::null())
+                        .spawn()
+                        .unwrap()
+                        .wait()
+                        .await
+                        .unwrap();
+                    println!("Generated code");
+                }
+                _ => {}
+            },
+            Err(e) => println!("watch error: {:?}", e),
+        }
+    }
 }
