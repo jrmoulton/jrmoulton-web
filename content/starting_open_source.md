@@ -9,7 +9,9 @@ This first/second article is the one that made me want to actually put in the ef
 
 ## How/ when did I decide to start
 I decided to start contributing to open source projects because I was going to be applying for summer internships and I was hoping that open source contributions would look good on a resume and in interviews. And that was honestly the main motivation for the first PR. Since then I have found that I genuinely enjoy the challenge of working on new projects and unfamiliar codebases. I enjoy seeing other people use and improve on my changes and it is definitely a great way to learn more. 
+### This is an h3
 
+# Now this is a title
 
 ## What were the challenges getting started
 
@@ -50,6 +52,20 @@ fn parse_expression(lexer: &mut PeekLex, prec: Precedence) -> ParseResult<Expr> 
     // checks if the calling function wants the expression to have the option of
     // being terminated or not.
     Ok(left_exp)
+}
+```
+
+``` c
+int main() {
+    int x = 3;
+    return x;
+}
+````
+
+``` java
+public static void main(String[] args) {
+    auto x = new ArrayList<Date>();
+    return;
 }
 ```
 

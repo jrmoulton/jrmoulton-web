@@ -1,0 +1,2 @@
+[0m[0m[1m[32m    Finished[0m release [optimized] target(s) in 0.15s
+[0m[0m[1m[32m     Running[0m `/Users/jaredmoulton/Programming/.cargo-target/release/jrmoulton-web`
