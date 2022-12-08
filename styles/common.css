@@ -1,0 +1,88 @@
+:root {
+    --content-width: 730px;
+}
+
+body {
+    color: var(--tsc-main-fg-color);
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+        "Helvetica Neue", sans-serif;
+    background-color: var(--tsc-main-bg-color);
+    font-size: 1.1rem;
+}
+
+a {
+    color: var(--blue);
+}
+
+.header {
+    background-color: var(--bg1);
+    margin: 0;
+    padding: 0;
+    height: 3rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 2rem;
+}
+
+.header a {
+    font-size: 0.95rem;
+    padding: 0 0.5rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.header a:hover {
+    background-color: var(--bg0);
+}
+
+.page-section {
+    margin: 1rem auto;
+    padding: 0 2rem;
+    line-height: 1.9;
+    display: block;
+}
+
+.page-section * {
+    margin: 1rem auto;
+    max-width: calc(min(var(--content-width), 100%));
+}
+
+.tsc-table-bg {
+    font-family: monospace;
+    background-color: var(--bg0);
+    line-height: 0.5;
+    overflow-x: auto;
+    border: 2px;
+    max-width: calc(min(var(--content-width) + 20rem, 150%));
+    padding-bottom: 0.3rem;
+    border: 0.5px solid #abb2bf;
+    border-radius: 15px;
+}
+
+.tsc-table {
+    margin: 1rem -0.3rem;
+    overflow-x: scroll;
+    line-height: 120%;
+    font-size: calc(9px + 0.490625vw);
+}
+
+.tsc-table td {
+    overflow: hidden;
+}
+
+.line-number {
+    user-select: none;
+    text-align: right;
+    color: var(--tsc-comment);
+    padding: 0 10px;
+}
+
+.tsc-line {
+    white-space: pre;
+    color: #ABB2BF;
+}
