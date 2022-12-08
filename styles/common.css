@@ -3,7 +3,7 @@
 }
 
 html {
-    font-size: 62.5%rem;
+    font-size: 16px;
 }
 
 body {
@@ -13,6 +13,42 @@ body {
         Roboto, Oxygen-Sans, Ubuntu, Cantarell,
         "Helvetica Neue", sans-serif;
     background-color: var(--tsc-main-bg-color);
+}
+
+h1 {
+    font-size: 1.6rem;
+}
+
+@media (min-width: 600px) {
+    h1 {
+        font-size: 1.9rem;
+    }
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+@media (min-width: 600px) {
+    h2 {
+        font-size: 1.7rem;
+    }
+}
+
+h3 {
+    font-size: 1.3rem;
+}
+
+h4 {
+    font-size: 1.2rem;
+}
+
+h5 {
+    font-size: 1rem;
+}
+
+h6 {
+    font-size: 1rem;
 }
 
 a {
@@ -33,17 +69,12 @@ a {
 }
 
 .header a {
-    font-size: 1.5rem;
+    font-size: 1rem;
     padding: 0.8rem 0.5rem;
     height: 100%;
     display: flex;
     align-items: center;
     text-decoration: none;
-}
-@media (max-width: 600px) {
-    .header a {
-        padding: 2rem 0.5rem;
-    }
 }
 
 .header a:hover {
@@ -78,7 +109,7 @@ a {
     margin: 1rem -0.3rem;
     overflow-x: scroll;
     line-height: 120%;
-    font-size: calc(12px + 0.390625vw);
+    font-size: calc(min(12px + 0.390625vw, 1rem));
 }
 
 .tsc-table td {

@@ -3,7 +3,13 @@
     12/04/2022
 ```
 
-This first/second article is the one that made me want to actually put in the effort to create this blog. I recently decided to get contribute to some open source projects. I took the advice I had been given on youtube for getting started with open source and I made a contribution to the documentation. 
+This first/second article is the one that made me want to actually put in the effort to create this blog. I recently decided to contribute to some open source projects and I took the advice I had been given on youtube for getting started with open source and I made a contribution to... Yep! the documentation. 
+
+Kind of underwhelming, I know, but it was defnitely a good way to start because it didn't cause me stress worrying if it was high enough quality or not and I leared how to actually open and work a pull request. And in general any new project that I contribute to I will probably first contribute to the documentation first. 
+
+For me this has multiple benefits. One is that I can get a feel for how that particular project is done. Maybe they have a particular merge strategy and they would prefer if all of the commits are squashed. This is a nice thing to just get out of the way. 
+
+But the other reason is probably the bigger reason. I don't want to spend a chunk of my time working on a project when the maintainers are hostile. Luckily this has never happened to me and it doesn't seem common. But even still I don't want to have to deal with that.
 
 ## Motivation - why did I want to
 
