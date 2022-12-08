@@ -22,7 +22,7 @@ async fn main() {
         .init();
 
     tokio::join!(
-        serve(using_serve_dir(), 2999),
+        serve(using_serve_dir(), 80),
         async_watch("content/"),
         async_watch("styles/"),
         async_watch("themes/"),
@@ -92,8 +92,6 @@ async fn async_watch<P: AsRef<Path>>(path: P) {
                         .arg("-r")
                         .arg("--bin")
                         .arg("gen")
-                        .stdin(std::process::Stdio::null())
-                        .stdout(std::process::Stdio::null())
                         .stderr(std::process::Stdio::null())
                         .spawn()
                         .unwrap()

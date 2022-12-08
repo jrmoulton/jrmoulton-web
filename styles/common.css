@@ -23,20 +23,27 @@ a {
     background-color: var(--bg1);
     margin: 0;
     padding: 0;
-    height: 3rem;
     display: flex;
     flex-direction: row;
     align-items: center;
     padding-left: 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 900;
 }
 
 .header a {
-    font-size: 1.3rem;
-    padding: 0 0.5rem;
+    font-size: 1.5rem;
+    padding: 0.8rem 0.5rem;
     height: 100%;
     display: flex;
     align-items: center;
     text-decoration: none;
+}
+@media (max-width: 600px) {
+    .header a {
+        padding: 2rem 0.5rem;
+    }
 }
 
 .header a:hover {
@@ -71,7 +78,7 @@ a {
     margin: 1rem -0.3rem;
     overflow-x: scroll;
     line-height: 120%;
-    font-size: calc(9px + 0.490625vw);
+    font-size: calc(12px + 0.390625vw);
 }
 
 .tsc-table td {
