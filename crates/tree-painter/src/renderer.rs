@@ -1,4 +1,5 @@
 use crate::{theme, Error, Lang};
+use colors_transform::Color;
 use std::collections::HashMap;
 use std::fmt::Write;
 use tree_sitter_highlight::{Highlight, HighlightConfiguration, Highlighter, HtmlRenderer};
@@ -106,6 +107,30 @@ impl Renderer {
             ":root {{ --tsc-main-fg-color: {}; --tsc-main-bg-color: {}; ",
             self.theme.foreground.color, self.theme.background.color,
         ));
+        let hsl_fg = colors_transform::Rgb::from_hex_str(&self.theme.foreground.color)
+            .unwrap()
+            .to_hsl();
+        let hsl_bg = colors_transform::Rgb::from_hex_str(&self.theme.background.color)
+            .unwrap()
+            .to_hsl();
+        root_str.push_str(&format!("--tsc-main-fg-color-h: {}; ", hsl_fg.get_hue()));
+        root_str.push_str(&format!(
+            "--tsc-main-fg-color-s: {}%; ",
+            hsl_fg.get_saturation()
+        ));
+        root_str.push_str(&format!(
+            "--tsc-main-fg-color-l: {}%; ",
+            hsl_fg.get_lightness()
+        ));
+        root_str.push_str(&format!("--tsc-main-bg-color-h: {}; ", hsl_bg.get_hue()));
+        root_str.push_str(&format!(
+            "--tsc-main-bg-color-s: {}%; ",
+            hsl_bg.get_saturation()
+        ));
+        root_str.push_str(&format!(
+            "--tsc-main-bg-color-l: {}%; ",
+            hsl_bg.get_lightness()
+        ));
         for (name, color) in &self.theme.palette {
             root_str.push_str(&format!("--{}: {}; ", name, color.as_str().unwrap()));
         }
@@ -171,7 +196,7 @@ impl Renderer {
         writeln!(
             &mut raw_out,
             r#"
-<div class="tsc-table-bg">
+<pre class="tsc-table-bg">
     <table class="tsc-table">
         <tbody>"#
         )
@@ -189,7 +214,7 @@ impl Renderer {
             &mut raw_out,
             "        </tbody>
     </table>
-</div>"
+</pre>"
         )
         .unwrap();
 

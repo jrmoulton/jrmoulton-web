@@ -24,6 +24,8 @@ async fn main() {
     tokio::join!(
         serve(using_serve_dir(), 80),
         async_watch("content/"),
+        async_watch("crates/gen/src"),
+        async_watch("crates/tree-painter/src"),
         async_watch("styles/"),
         async_watch("themes/"),
         async_watch("templates/"),

@@ -23,17 +23,6 @@ h2 {
     font-size: 1.5rem;
 }
 
-@media (min-width: 600px) {
-    h1 {
-        font-size: 1.9rem;
-    }
-
-    h2 {
-        font-size: 1.7rem;
-    }
-
-}
-
 h3 {
     font-size: 1.3rem;
 }
@@ -55,7 +44,7 @@ a {
 }
 
 .header {
-    background-color: var(--bg1);
+    background-color: hsl(var(--tsc-main-bg-color-h), calc(var(--tsc-main-bg-color-s) + 20%), calc(var(--tsc-main-bg-color-l) + 5%));
     margin: 0;
     padding: 0;
     display: flex;
@@ -68,7 +57,7 @@ a {
 }
 
 .header a {
-    font-size: 1rem;
+    font-size: 0.9rem;
     padding: 0.8rem 0.5rem;
     height: 100%;
     display: flex;
@@ -77,12 +66,16 @@ a {
 }
 
 .header a:hover {
-    background-color: var(--bg0);
+    background-color: hsl(var(--tsc-main-bg-color-h), calc(var(--tsc-main-bg-color-s) - 20%), calc(var(--tsc-main-bg-color-l) + 10%));
 }
 
-@media (min-width: 600px) {
+@media (max-width: 600px) {
     .header a {
-        font-size: 1.3rem;
+        font-size: 1rem;
+        padding: 0.8rem 0.25rem;
+    }
+    .header {
+        padding-left: 1rem;
     }
 }
 
@@ -93,28 +86,31 @@ a {
     display: block;
 }
 
-.page-section * {
+.page-section > * {
     margin: 1rem auto;
-    max-width: calc(min(var(--content-width), 100%));
+    max-width: var(--content-width);
 }
 
 .tsc-table-bg {
     font-family: monospace;
-    background-color: var(--bg0);
+    background-color: hsl(var(--tsc-main-bg-color-h), var(--tsc-main-bg-color-s), calc(var(--tsc-main-bg-color-l) + 10%));
+    max-width: calc(min(1200px, 70vw));
     line-height: 0.5;
     overflow-x: auto;
     border: 2px;
-    max-width: calc(min(var(--content-width) + 20rem, 150%));
+    max-width: calc(var(--content-width) + 20rem);
     padding-bottom: 0.3rem;
     border: 0.5px solid #abb2bf;
     border-radius: 15px;
 }
 
 .tsc-table {
+    padding-right: 5rem;
     margin: 1rem -0.3rem;
     overflow-x: scroll;
     line-height: 120%;
     font-size: calc(min(12px + 0.390625vw, 1rem));
+    max-width: calc(min(var(--content-width) + 20rem, 150%));
 }
 
 .tsc-table td {
