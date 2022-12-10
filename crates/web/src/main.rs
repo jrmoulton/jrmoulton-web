@@ -21,15 +21,20 @@ async fn main() {
         .with(tracing_subscriber::fmt::layer())
         .init();
 
-    tokio::join!(
-        serve(using_serve_dir(), 80),
-        async_watch("content/"),
-        async_watch("crates/gen/src"),
-        async_watch("crates/tree-painter/src"),
-        async_watch("styles/"),
-        async_watch("themes/"),
-        async_watch("templates/"),
-    );
+    if cfg!(debug_assertions) {
+        tokio::join!(
+            serve(using_serve_dir(), 80),
+            async_watch("content/"),
+            async_watch("crates/gen/src"),
+            async_watch("crates/tree-painter/src"),
+            async_watch("styles/"),
+            async_watch("js/"),
+            async_watch("themes/"),
+            async_watch("templates/"),
+        );
+    } else {
+        tokio::join!(serve(using_serve_dir(), 80), async_watch("content/"),);
+    }
 }
 
 fn using_serve_dir() -> Router {

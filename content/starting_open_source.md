@@ -1,7 +1,4 @@
 # My experience starting with open source
-``` date
-    12/04/2022
-```
 
 This first/second article is the one that made me want to actually put in the effort to create this blog. I recently decided to contribute to some open source projects and I took the advice I had been given on youtube for getting started with open source and I made a contribution to... Yep! the documentation. 
 
@@ -81,4 +78,6 @@ public static void main(String[] args) {
 
 ## What did I learn
 
-
+``` date
+    12/04/2022
+```

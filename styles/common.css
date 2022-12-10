@@ -4,7 +4,12 @@
 
 html {
     font-size: 16px;
+    -webkit-text-size-adjust:none;
+    -ms-text-size-adjust:none;
+    -moz-text-size-adjust:none;
+    text-size-adjust:none;
 }
+
 
 body {
     color: var(--tsc-main-fg-color);
@@ -39,8 +44,23 @@ h6 {
     font-size: 1rem;
 }
 
-a {
+a, .dropbtn {
     color: var(--blue);
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.4rem;
+    }
+    h2 {
+        font-size: 1.3rem;
+    }
+    h3 {
+        font-size: 1.2rem;
+    }
+    h4 {
+        font-size: 1.1rem;
+    }
 }
 
 .header {
@@ -56,7 +76,9 @@ a {
     z-index: 900;
 }
 
-.header a {
+.header a, .dropbtn {
+    color: var(--blue);
+    background-color: transparent;
     font-size: 0.9rem;
     padding: 0.8rem 0.5rem;
     height: 100%;
@@ -65,8 +87,50 @@ a {
     text-decoration: none;
 }
 
-.header a:hover {
+.header >*:hover {
     background-color: hsl(var(--tsc-main-bg-color-h), calc(var(--tsc-main-bg-color-s) - 20%), calc(var(--tsc-main-bg-color-l) + 10%));
+}
+
+/* Theme Dropdown Button */
+.dropbtn {
+    box-shadow: 0px ;
+    border: none;
+    cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: hsl(var(--tsc-main-bg-color-h), calc(var(--tsc-main-bg-color-s) + 20%), calc(var(--tsc-main-bg-color-l) + 5%));
+    min-width: 10rem;
+    max-height: 20rem;
+    overflow-y: scroll;
+    z-index: 1;
+    border-radius: 0px 0px 0.5rem 0.5rem;
+}
+
+/* Links inside the dropdown */
+.dropdown-content div {
+    color: var(--tsc-main-fg-color);
+    padding: 0.8rem 1rem;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content div:hover {
+    background-color: hsl(var(--tsc-main-bg-color-h), calc(var(--tsc-main-bg-color-s) - 20%), calc(var(--tsc-main-bg-color-l) + 10%));
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {
+    display: block;
 }
 
 @media (max-width: 600px) {
@@ -87,13 +151,13 @@ a {
 }
 
 .page-section > * {
-    margin: 1rem auto;
     max-width: var(--content-width);
+    margin: 1rem auto;
 }
 
 .tsc-table-bg {
     font-family: monospace;
-    background-color: hsl(var(--tsc-main-bg-color-h), var(--tsc-main-bg-color-s), calc(var(--tsc-main-bg-color-l) + 10%));
+    background-color: hsl(var(--tsc-main-bg-color-h), calc(var(--tsc-main-bg-color-s) - 5%), calc(var(--tsc-main-bg-color-l) + 10%));
     max-width: calc(min(1200px, 70vw));
     line-height: 0.5;
     overflow-x: auto;
@@ -109,8 +173,13 @@ a {
     margin: 1rem -0.3rem;
     overflow-x: scroll;
     line-height: 120%;
-    font-size: calc(min(12px + 0.390625vw, 1rem));
+    font-size: 0.8rem;
     max-width: calc(min(var(--content-width) + 20rem, 150%));
+}
+@media (max-width: 600px) {
+    .tsc-table {
+        font-size: 0.7rem;
+    }
 }
 
 .tsc-table td {
@@ -128,3 +197,19 @@ a {
     white-space: pre;
     color: #ABB2BF;
 }
+
+.date {
+    margin: 3rem auto;
+    min-width: max-content;
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: color-mix( in srgb, var(--tsc-main-bg-color) 40%, var(--tsc-main-fg-color));
+}
+@media (max-width: 600px) {
+    .date {
+        font-size: 1rem;
+    }
+}
+
+

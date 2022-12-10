@@ -1,19 +1,24 @@
 use pulldown_cmark::{CodeBlockKind, Event};
 
 fn main() {
-    std::fs::create_dir_all("build/styles").unwrap();
-    std::process::Command::new("cp")
-        .arg("styles/common.css")
-        .arg("build/styles/common.css")
-        .spawn()
-        .unwrap();
+    let mut copy_options = fs_extra::dir::CopyOptions::new();
+    copy_options.overwrite = true;
+    fs_extra::dir::copy("styles/", "build/", &copy_options).expect("Failed to copy css");
+    fs_extra::dir::copy("js/", "build/", &copy_options).expect("failed to move js to build folder");
     for file in std::fs::read_dir("./content/").unwrap() {
         let file = file.unwrap();
         let input = std::fs::read_to_string(file.path()).unwrap();
         let mut next_lang = String::new();
         let mut custom = None;
-        for theme in std::fs::read_dir("./themes/").unwrap() {
-            let theme = theme.unwrap().path();
+        let mut theme_divs = String::new();
+        let mut themes: Vec<_> = std::fs::read_dir("./themes/")
+            .unwrap()
+            .map(|r| r.unwrap())
+            .collect();
+        themes.sort_by_key(|a| a.path());
+        for theme in themes {
+            // <div class = "theme-drop-but" onmouseover="setTheme(this)" onclick="setTheme(this)" href="styles/onedark_darker.css">Link 1</div>
+            let theme = theme.path();
             let theme = theme.file_stem().unwrap().to_str().unwrap();
             custom = Some(
                 tree_painter::Theme::from_helix(
@@ -26,6 +31,7 @@ fn main() {
                 tree_painter::Renderer::new(custom.clone().unwrap()).css(),
             )
             .unwrap();
+            theme_divs.push_str(&format!(r#"<div class="theme-drop-but" onmouseover="setTheme(this)" onclick="setTheme(this)" href="styles/{}.css">{}</div>"#, &theme, &theme));
         }
         let mut renderer = tree_painter::Renderer::new(custom.unwrap());
         let mut heading = false;
@@ -35,9 +41,16 @@ fn main() {
                 next_lang = lang.to_string();
                 Event::SoftBreak
             }
-            Event::Text(code) if next_lang == "date" => {
-                Event::Html(format!(r#"<div class="date">{}</div>"#, code.trim()).into())
-            }
+            Event::Text(code) if next_lang == "date" => Event::Html(
+                format!(
+                    r#"<div class="date">{}</div>"#,
+                    dateparser::parse(code.trim())
+                        .unwrap()
+                        .date_naive()
+                        .format("%A,  %B %-d, %C%y")
+                )
+                .into(),
+            ),
             Event::Text(code) if !next_lang.is_empty() => {
                 let lang = tree_painter::Lang::from_name(&next_lang).unwrap();
                 let mut code_str = String::new();
@@ -75,30 +88,18 @@ fn main() {
     <title>{file_name_cap}</title>
     <link rel="stylesheet" href="/styles/common.css">
     <link id="theme" type="text/css" rel="stylesheet" href="/styles/onedark_dark.css">
-    <script>
-        /* When the user clicks on the button, 
-        toggle between hiding and showing the dropdown content */
-        function myFunction() {{
-          document.getElementById("myDropdown").classList.toggle("show");
-        }}
-
-        // Close the dropdown menu if the user clicks outside of it
-        window.onclick = function(event) {{
-          if (!event.target.matches('.dropbtn')) {{
-            var dropdowns = document.getElementsByClassName("dropdown-content");
-            var i;
-            for (i = 0; i < dropdowns.length; i++) {{
-              var openDropdown = dropdowns[i];
-              if (openDropdown.classList.contains('show')) {{
-                openDropdown.classList.remove('show');
-              }}
-            }}
-          }}
-        }}
-    </script>
+    <script src="js/theme.js"></script>
 </head>
 <body>
-    {}
+    <div class = header>
+        <div class="dropdown">
+            <button onclick="myFunction()" class="dropbtn">Theme</button>
+            <div id="myDropdown" class="dropdown-content">
+                {theme_divs}
+            </div>
+        </div>
+        {}
+        </div>
     <div class="page-section">
         {mark_out}
     </div>

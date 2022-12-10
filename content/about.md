@@ -1,7 +1,4 @@
 # A new blog
-``` date
-August 15, 2022
-```
 
 A few years ago when I was first learning programming I thought often about how useful it would be to write down the information I was learning from the perspective of a newbie because I knew what the actual difficulties were for a beginner. But I was too busy learning programming to actually write about it. So now a few years have gone by, I'm not so much of a begginer anymore and this probably isn't going to be as useful as it once was... but here we are. And I'm doing it. 
 
@@ -13,4 +10,6 @@ The goal for this blog is to write about things as I learn them, not create tuto
 
 Currently this blog is just me writing markdown files in Neovim. I'm not super satisfied with the current offerings for static site generation such as Hugo and zola and I think I want to build a custom engine similar to what [Amos/fasterthanlime](https://fasterthanli.me) has. 
 
-Utah
+``` date
+August 15, 2022
+```

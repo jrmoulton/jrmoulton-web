@@ -7,7 +7,9 @@ edition = "2021"
 
 [dependencies]
 pulldown-cmark = "0.9.2"
-tree-painter = { path = "../tree-painter/", default-features = false, features = ["tree-sitter-rust", "tree-sitter-c", "tree-sitter-cpp", "tree-sitter-java"] }
+tree-painter = { path = "../tree-painter/", default-features = false, features = ["tree-sitter-rust", "tree-sitter-c", "tree-sitter-cpp", "tree-sitter-java", "tree-sitter-css"] }
 titlecase = "2.2.1"
 regex  = "1.7.0"
+dateparser = "0.1.7"
+fs_extra = "1.2.0"
 # tree-painter = {version="0", default-features = false, features = ["tree-sitter-rust", "tree-sitter-c", "tree-sitter-cpp"] }
