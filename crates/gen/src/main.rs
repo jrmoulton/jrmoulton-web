@@ -92,14 +92,18 @@ fn main() {
 </head>
 <body>
     <div class = header>
-        <div class="dropdown">
-            <button onclick="myFunction()" class="dropbtn">Theme</button>
-            <div id="myDropdown" class="dropdown-content">
-                {theme_divs}
+        <div class="header-left">
+            {}
+        </div>
+        <div class="header-right">
+            <div class="dropdown">
+                <button onclick="myFunction()" class="dropbtn">&#9660 Theme</button>
+                <div id="myDropdown" class="dropdown-content">
+                    {theme_divs}
+                </div>
             </div>
         </div>
-        {}
-        </div>
+    </div>
     <div class="page-section">
         {mark_out}
     </div>

@@ -1,105 +1,142 @@
 # Syntax highlighting
 # -------------------
-"type" = "yellow"
-"type.enum.variant" = "peach"
-
-"constructor" = "sapphire"
-
-"constant" = "peach"
-"constant.character" = "teal"
-"constant.character.escape" = "pink"
-
-"string" = "green"
-"string.regexp" = "peach"
-"string.special" = "pink"
-
+# -- Misc
 "comment" = { fg = "overlay1", modifiers = ["italic"] }
+"operator" = { fg = "sky" }
 
-"variable" = "text"
-"variable.parameter" = { fg = "maroon", modifiers = ["italic"] }
-"variable.builtin" = "red"
-"variable.other.member" = "teal"
+# -- Punctuation
+"punctuation.delimiter" = { fg = "overlay2"}
+"punctuation.bracket" = { fg = "overlay2"}
+"punctuation.special" = { fg = "sky" }
 
-"label" = "sapphire" # used for lifetimes
+# -- Literals
+"string" = { fg = "green" }
+"string.regex" = { fg = "peach" }
+"string.escape" = { fg = "pink" }
+"string.special" = { fg = "blue"}
 
-"punctuation" = "overlay2"
+"character" = { fg = "teal" }
 
-"keyword" = "mauve"
-"keyword.control.conditional" = { fg = "mauve", modifiers = ["italic"] }
+"boolean" = { fg = "peach" }
+"number" = { fg = "peach" }
+"float" = { fg = "peach" }
 
-"operator" = "sky"
+# -- Functions
+"function" = { fg = "blue" }
+"function.builtin" = { fg = "peach" }
+"function.call" = {fg = "blue" }
+"function.macro" = { fg = "teal" }
+"method" = { fg = "blue" }
 
-"function" = "blue"
-"function.builtin" = "peach"
-"function.macro" = "teal"
+"method.call" = { fg = "blue" }
 
-"tag" = "mauve"
+"constructor" = { fg = "sapphire" }
+"parameter" = { fg = "maroon", modifiers = ["italic"] }
+
+# -- Keywords
+"keyword" = { fg = "mauve" }
+"keyword.function" = { fg = "mauve" }
+"keyword.operator" = { fg = "mauve" }
+"keyword.return" = { fg = "mauve" }
+
+# -- JS & derivative
+"keyword.export" = { fg = "sky", modifiers = ["bold"] }
+
+"conditional" = { fg = "mauve", modifiers = ["italic"] }
+"repeat" = { fg = "mauve" }
+
+"exception" = { fg = "mauve" }
+
+# -- Types
+
+"type" = { fg = "yellow" }
+"type.builtin" = { fg = "yellow", modifiers = ["italic"] }
+"type.definition" = { fg = "yellow" }
+"type.qualifier" = { fg  ="yellow" }
+
+# "attribute" = { link = "Constant" }
+"field" = { fg = "teal"}
+"property" = { fg = "teal" }
+
+# -- Identifiers
+
+"variable" = { fg = "text" }
+"variable.builtin" = { fg = "red"}
+
+"constant" = { fg = "peach"}
+"constant.builtin" = { fg = "peach"}
+"constant.macro" = { fg = "teal" }
 
 "namespace" = { fg = "blue", modifiers = ["italic"] }
+"symbol" = { fg = "flamingo"}
 
-"special" = "blue" # fuzzy highlight
+# -- Text
 
-"markup.heading.marker" = { fg = "peach", modifiers = ["bold"] }
-"markup.heading.1" = "lavender"
-"markup.heading.2" = "mauve"
-"markup.heading.3" = "green"
-"markup.heading.4" = "yellow"
-"markup.heading.5" = "pink"
-"markup.heading.6" = "teal"
-"markup.list" = "mauve"
-"markup.bold" = { modifiers = ["bold"] }
-"markup.italic" = { modifiers = ["italic"] }
-"markup.link.url" = { fg = "peach", modifiers = ["underlined"] }
-"markup.link.text" = "blue"
-"markup.raw" = "flamingo"
+"text" = { fg = "text"}
+"text.strong" = { fg = "maroon", modifiers = ["bold"] }
+"text.emphasis" = { fg = "maroon", modifiers = ["italic"] }
+"text.strike" = { fg = "text" }
+"text.title" = { fg = "blue", modifiers = ["bold"] }
+"text.literal" = { fg = "teal"}
+"text.uri" = { fg = "rosewater", modifiers = ["italic"]}
+"text.math" = { fg = "blue"}
+"text.environment" = { fg = "pink"}
+"text.environment.name" = { fg = "blue"}
+"text.reference" = { fg = "lavender", modifiers = ["bold"] }
 
-"diff.plus" = "green"
-"diff.minus" = "red"
-"diff.delta" = "yellow"
+"text.todo" = { fg = "base", bg = "yellow"}
+"text.todo.checked" = { fg = "green"}
+"text.todo.unchecked" = { fg = "overlay1"}
+"text.note" = { fg = "base", bg = "blue"}
+"text.warning" = { fg = "base", bg = "yellow"}
+"text.danger" = { fg = "base", bg = "red"}
 
+
+# -- Tags
+"tag" = { fg = "mauve"}
+"tag.attribute" = { fg = "teal", modifiers = ["italic"] }
+"tag.delimiter" = { fg = "sky" }
+
+# -- Language specific:
+
+# -- css
+"property.css" = { fg = "lavender"}
+"property.id.css" = { fg = "blue"}
+"property.class.css" = { fg = "yellow"}
+"type.css" = { fg = "lavender"}
+"type.tag.css" = { fg = "mauve"}
+"string.plain.css" = { fg = "peach"}
+"number.css" = { fg = "peach"}
+
+# -- toml
+"property.toml" = { fg = "blue"}
+
+# -- json
+"label.json" = { fg = "blue"}
+
+# -- lua
+"field.lua" = { fg = "lavender"}
+"constructor.lua" = { fg = "flamingo"}
+
+# -- typescript
+"constructor.typescript" = { fg = "lavender"}
+
+# -- TSX (Typescript React)
+"constructor.tsx" = { fg = "lavender"}
+"tag.attribute.tsx" = { fg = "mauve"}
+
+# -- yaml
+"field.yaml" = { fg = "blue"}
+
+# -- Ruby
+"symbol.ruby" = { fg = "flamingo"}
+
+# -- PHP
+"type.qualifier.php" = { fg = "pink" }
 # User Interface
 # --------------
 "ui.background" = { fg = "text", bg = "base" }
-
-"ui.linenr" = { fg = "surface1" }
-"ui.linenr.selected" = { fg = "lavender" }
-
-"ui.statusline" = { fg = "overlay1", bg = "surface0" }
-"ui.statusline.inactive" = { fg = "overlay1", bg = "mantle" }
-"ui.statusline.normal" = { fg = "surface0", bg = "lavender", modifiers = ["bold"] }
-"ui.statusline.insert" = { fg = "surface0", bg = "green", modifiers = ["bold"]  }
-"ui.statusline.select" = { fg = "surface0", bg = "flamingo", modifiers = ["bold"]  }
-
-"ui.popup" = { fg = "text", bg = "surface0" }
-"ui.window" = { fg = "crust" }
-"ui.help" = { fg = "overlay2", bg = "surface0" }
-
 "ui.text" = "text" 
-"ui.text.focus" = { fg = "text", bg = "surface0", modifiers = ["bold"] }
-
-"ui.virtual" = "overlay0"
-"ui.virtual.ruler" = { bg = "surface0" }
-"ui.virtual.indent-guide" = "surface0"
-
-"ui.selection" = { bg = "surface1" }
-
-"ui.cursor" = { fg = "base", bg = "secondary_cursor" }
-"ui.cursor.primary" = { fg = "base", bg = "rosewater" }
-"ui.cursor.match" = { fg = "peach", modifiers = ["bold"] }
-
-"ui.cursorline.primary" = { bg = "cursorline" }
-
-"ui.highlight" = { bg = "surface1" }
-
-"ui.menu" = { fg = "overlay2", bg = "surface0" }
-"ui.menu.selected" = { fg = "text", bg = "surface1", modifiers = ["bold"] }
-
-diagnostic = { modifiers = ["underlined"] }
-
-error = "red"
-warning = "yellow"
-info = "sky"
-hint = "teal"
 
 [palette]
 # catppuccin palette colors
