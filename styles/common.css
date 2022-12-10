@@ -166,6 +166,18 @@ a, .dropbtn {
         padding: 0rem 1rem;
     }
 }
+@media (max-width: 400px) {
+    .header >* {
+        font-size: 1rem;
+        padding: 0.3rem 0.25rem;
+    }
+    .header-left a {
+        padding: 0rem 0.2rem;
+    }
+    .header {
+        padding: 0rem 0.3rem;
+    }
+}
 
 .page-section {
     margin: 1rem auto;

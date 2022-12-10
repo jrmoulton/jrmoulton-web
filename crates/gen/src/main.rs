@@ -1,41 +1,69 @@
+use handlebars::Handlebars;
 use pulldown_cmark::{CodeBlockKind, Event};
 
+mod structs;
+use structs::*;
+
 fn main() {
+    // Copy css and javascript over to the build folder
     let mut copy_options = fs_extra::dir::CopyOptions::new();
     copy_options.overwrite = true;
     fs_extra::dir::copy("styles/", "build/", &copy_options).expect("Failed to copy css");
     fs_extra::dir::copy("js/", "build/", &copy_options).expect("failed to move js to build folder");
-    for file in std::fs::read_dir("./content/").unwrap() {
-        let file = file.unwrap();
-        let input = std::fs::read_to_string(file.path()).unwrap();
-        let mut next_lang = String::new();
-        let mut custom = None;
-        let mut theme_divs = String::new();
-        let mut themes: Vec<_> = std::fs::read_dir("./themes/")
-            .unwrap()
-            .map(|r| r.unwrap())
-            .collect();
-        themes.sort_by_key(|a| a.path());
-        for theme in themes {
-            // <div class = "theme-drop-but" onmouseover="setTheme(this)" onclick="setTheme(this)" href="styles/onedark_darker.css">Link 1</div>
-            let theme = theme.path();
-            let theme = theme.file_stem().unwrap().to_str().unwrap();
-            custom = Some(
-                tree_painter::Theme::from_helix(
-                    &std::fs::read_to_string(format!("./themes/{}.toml", theme)).unwrap(),
-                )
-                .unwrap(),
-            );
-            std::fs::write(
-                format!("./build/styles/{}.css", theme),
-                tree_painter::Renderer::new(custom.clone().unwrap()).css(),
-            )
-            .unwrap();
-            theme_divs.push_str(&format!(r#"<div class="theme-drop-but" onmouseover="setTheme(this)" onclick="setTheme(this)" href="styles/{}.css">{}</div>"#, &theme, &theme));
-        }
-        let mut renderer = tree_painter::Renderer::new(custom.unwrap());
-        let mut heading = false;
 
+    // Register the templates
+    let mut templ_reg = Handlebars::new();
+    templ_reg
+        .register_template_string(
+            "theme_div",
+            include_str!("../../../templates/theme_div.html"),
+        )
+        .unwrap();
+
+    // Get all the themes
+    let mut themes = Themes::default();
+    let theme_files: Vec<_> = std::fs::read_dir("./themes/")
+        .unwrap()
+        .map(|r| r.unwrap())
+        .collect();
+    for theme_file in theme_files {
+        let theme_path = theme_file.path();
+        let theme_base_name = theme_path
+            .file_stem()
+            .unwrap()
+            .to_str()
+            .unwrap()
+            .to_string();
+        themes.themes.push(Theme {
+            base_name: theme_base_name,
+        });
+    }
+    // Generate the css from the themes
+    for theme in &themes.themes {
+        std::fs::write(
+            format!("./build/styles/{}.css", theme.base_name),
+            tree_painter::Renderer::new(theme.tree_painter_theme()).css(),
+        )
+        .unwrap();
+    }
+
+    write_articles(&mut templ_reg, &mut themes);
+}
+
+fn write_articles(templ_reg: &mut Handlebars, themes: &mut Themes) {
+    templ_reg
+        .register_template_string("article", include_str!("../../../templates/article.html"))
+        .unwrap();
+    for article_string in std::fs::read_dir("./content/").unwrap() {
+        let article_string = article_string.unwrap();
+        let input = std::fs::read_to_string(article_string.path()).unwrap();
+        let mut renderer = tree_painter::Renderer::new(
+            tree_painter::Theme::from_helix(include_str!("../../../themes/onedark_dark.toml"))
+                .unwrap(),
+        );
+
+        let mut next_lang = String::new();
+        let mut heading = false;
         let parser = pulldown_cmark::Parser::new(&input).map(|event| match event {
             Event::Start(pulldown_cmark::Tag::CodeBlock(CodeBlockKind::Fenced(lang))) => {
                 next_lang = lang.to_string();
@@ -76,41 +104,20 @@ fn main() {
         });
         let mut mark_out = String::new();
         pulldown_cmark::html::push_html(&mut mark_out, parser);
-        let file_name = file.path();
+
+        // Write the article
+        let file_name = article_string.path();
         let file_name = file_name.file_stem().unwrap().to_str().unwrap();
         let file_name_cap = titlecase::titlecase(&file_name.replace('_', " "));
-        let final_output = String::from(&format!(
-            r#"
-<!DOCTYPE html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{file_name_cap}</title>
-    <link rel="stylesheet" href="/styles/common.css">
-    <link id="theme" type="text/css" rel="stylesheet" href="/styles/onedark_dark.css">
-    <script src="js/theme.js"></script>
-</head>
-<body>
-    <div class = header>
-        <div class="header-left">
-            {}
-        </div>
-        <div class="header-right">
-            <div class="dropdown">
-                <button onclick="myFunction()" class="dropbtn">&#9660 Theme</button>
-                <div id="myDropdown" class="dropdown-content">
-                    {theme_divs}
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="page-section">
-        {mark_out}
-    </div>
-</body>
-    "#,
-            include_str!("../../../templates/header.html")
-        ));
+        let article = Article {
+            head: include_str!("../../../templates/head.html"),
+            file_name_cap,
+            header: include_str!("../../../templates/header.html"),
+            theme_divs: themes.theme_divs(templ_reg),
+            page_section: mark_out,
+        };
+        let final_output = templ_reg.render("article", &article).unwrap();
+
         std::fs::write(format!("build/{}.html", file_name), final_output).unwrap();
     }
 }
