@@ -15,14 +15,15 @@ fn main() {
     fs_extra::dir::copy("styles/", "build/", &dir_copy_options).expect("Failed to copy css");
     fs_extra::dir::copy("js/", "build/", &dir_copy_options)
         .expect("failed to move js to build folder");
-    fs_extra::dir::copy("images/", "build/", &dir_copy_options)
-        .expect("failed to copy imagages to build folder");
-    fs_extra::file::copy(
-        "images/favicon.ico",
-        "build/favicon.ico",
-        &file_copy_options,
-    )
-    .expect("failed to copy the favicon");
+    for icon in std::fs::read_dir("icons/").unwrap() {
+        let icon = icon.unwrap();
+        fs_extra::file::copy(
+            icon.path(),
+            format!("build/{}", icon.file_name().to_string_lossy()),
+            &file_copy_options,
+        )
+        .expect("failed to copy icon to build folder");
+    }
 
     // Register the templates
     let mut templ_reg = Handlebars::new();
