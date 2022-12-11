@@ -14,4 +14,5 @@ dateparser = "0.1.7"
 fs_extra = "1.2.0"
 handlebars = "4.3.5"
 serde = {version = "1.0.149", features = ["derive"]}
+rayon = "1.6.1"
 # tree-painter = {version="0", default-features = false, features = ["tree-sitter-rust", "tree-sitter-c", "tree-sitter-cpp"] }

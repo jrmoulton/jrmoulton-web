@@ -1,5 +1,6 @@
 use handlebars::Handlebars;
 use pulldown_cmark::{CodeBlockKind, Event};
+use rayon::prelude::*;
 
 mod structs;
 use structs::*;
@@ -8,6 +9,7 @@ fn main() {
     // Copy css and javascript over to the build folder
     let mut copy_options = fs_extra::dir::CopyOptions::new();
     copy_options.overwrite = true;
+    let _ = fs_extra::dir::create("build/", false);
     fs_extra::dir::copy("styles/", "build/", &copy_options).expect("Failed to copy css");
     fs_extra::dir::copy("js/", "build/", &copy_options).expect("failed to move js to build folder");
 
@@ -47,6 +49,9 @@ fn main() {
         .unwrap();
     }
 
+    // sort the themes so that they are in alphabetical order when the site is generated
+    themes.sort_themes();
+
     write_articles(&mut templ_reg, &mut themes);
 }
 
@@ -54,13 +59,15 @@ fn write_articles(templ_reg: &mut Handlebars, themes: &mut Themes) {
     templ_reg
         .register_template_string("article", include_str!("../../../templates/article.html"))
         .unwrap();
-    for article_string in std::fs::read_dir("./content/").unwrap() {
-        let article_string = article_string.unwrap();
+    let files: Vec<_> = std::fs::read_dir("./content/")
+        .expect("couldnt read the content directory")
+        .collect();
+    let theme =
+        tree_painter::Theme::from_helix(include_str!("../../../themes/onedark_dark.toml")).unwrap();
+    files.par_iter().for_each(|file| {
+        let article_string = file.as_ref().unwrap();
         let input = std::fs::read_to_string(article_string.path()).unwrap();
-        let mut renderer = tree_painter::Renderer::new(
-            tree_painter::Theme::from_helix(include_str!("../../../themes/onedark_dark.toml"))
-                .unwrap(),
-        );
+        let mut renderer = tree_painter::Renderer::new(theme.clone());
 
         let mut next_lang = String::new();
         let mut heading = false;
@@ -119,5 +126,5 @@ fn write_articles(templ_reg: &mut Handlebars, themes: &mut Themes) {
         let final_output = templ_reg.render("article", &article).unwrap();
 
         std::fs::write(format!("build/{}.html", file_name), final_output).unwrap();
-    }
+    });
 }

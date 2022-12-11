@@ -15,13 +15,16 @@ pub struct Themes {
     pub themes: Vec<Theme>,
 }
 impl Themes {
-    pub fn theme_divs(&mut self, registry: &Handlebars) -> String {
+    pub fn theme_divs(&self, registry: &Handlebars) -> String {
         let mut divs_string = String::new();
-        self.themes.sort();
+        // self.themes.sort();
         for theme in &self.themes {
             divs_string.push_str(&registry.render("theme_div", &theme).unwrap());
         }
         divs_string
+    }
+    pub fn sort_themes(&mut self) {
+        self.themes.sort();
     }
 }
 
