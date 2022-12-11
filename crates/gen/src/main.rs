@@ -12,6 +12,8 @@ fn main() {
     let _ = fs_extra::dir::create("build/", false);
     fs_extra::dir::copy("styles/", "build/", &copy_options).expect("Failed to copy css");
     fs_extra::dir::copy("js/", "build/", &copy_options).expect("failed to move js to build folder");
+    fs_extra::dir::copy("images/", "build/", &copy_options)
+        .expect("failed to copy imagages to build folder");
 
     // Register the templates
     let mut templ_reg = Handlebars::new();
