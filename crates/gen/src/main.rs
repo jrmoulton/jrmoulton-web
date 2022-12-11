@@ -7,13 +7,22 @@ use structs::*;
 
 fn main() {
     // Copy css and javascript over to the build folder
-    let mut copy_options = fs_extra::dir::CopyOptions::new();
-    copy_options.overwrite = true;
+    let mut dir_copy_options = fs_extra::dir::CopyOptions::new();
+    dir_copy_options.overwrite = true;
+    let mut file_copy_options = fs_extra::file::CopyOptions::new();
+    file_copy_options.overwrite = true;
     let _ = fs_extra::dir::create("build/", false);
-    fs_extra::dir::copy("styles/", "build/", &copy_options).expect("Failed to copy css");
-    fs_extra::dir::copy("js/", "build/", &copy_options).expect("failed to move js to build folder");
-    fs_extra::dir::copy("images/", "build/", &copy_options)
+    fs_extra::dir::copy("styles/", "build/", &dir_copy_options).expect("Failed to copy css");
+    fs_extra::dir::copy("js/", "build/", &dir_copy_options)
+        .expect("failed to move js to build folder");
+    fs_extra::dir::copy("images/", "build/", &dir_copy_options)
         .expect("failed to copy imagages to build folder");
+    fs_extra::file::copy(
+        "images/favicon.ico",
+        "build/favicon.ico",
+        &file_copy_options,
+    )
+    .expect("failed to copy the favicon");
 
     // Register the templates
     let mut templ_reg = Handlebars::new();
