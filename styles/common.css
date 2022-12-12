@@ -70,8 +70,8 @@ a, .dropbtn {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 0 2rem;
     position: sticky;
+    padding: 0 1rem;
     top: 0;
     z-index: 900;
 }
@@ -81,17 +81,19 @@ a, .dropbtn {
     background-color: transparent;
     font-size: 0.9rem;
     padding: 0.8rem 0.5rem;
-    height: 100%;
     display: flex;
     align-items: center;
     text-decoration: none;
+}
+.header-right {
+    flex-shrink: 0;
 }
 .dropbtn {
     color: var(--blue);
     background-color: transparent;
     font-size: 0.9rem;
+    /* this padding makes the background color around the text look good*/
     padding: 0.8rem 0.5rem;
-    height: 100%;
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -125,12 +127,10 @@ a, .dropbtn {
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
-    --width: 10rem;
     display: none;
     position: absolute;
-    left: calc(100% - var(--width));
+    right: 0%;
     background-color: hsl(var(--tsc-main-bg-color-h), calc(var(--tsc-main-bg-color-s) + 20%), calc(var(--tsc-main-bg-color-l) + 5%));
-    min-width: var(--width);
     max-height: 20rem;
     overflow-y: scroll;
     z-index: 1;
@@ -157,10 +157,10 @@ a, .dropbtn {
 @media (max-width: 600px) {
     .header >* {
         font-size: 1rem;
-        padding: 0.3rem 0.25rem;
+        padding: 0 0.25rem;
     }
     .header-left a {
-        padding: 0rem 0.3rem;
+        padding: 0.8rem 0.3rem;
     }
     .header {
         padding: 0rem 1rem;
@@ -169,10 +169,10 @@ a, .dropbtn {
 @media (max-width: 400px) {
     .header >* {
         font-size: 1rem;
-        padding: 0.3rem 0.25rem;
+        padding: 0rem 0.25rem;
     }
     .header-left a {
-        padding: 0rem 0.2rem;
+        padding: 0.8rem 0.2rem
     }
     .header {
         padding: 0rem 0.3rem;
