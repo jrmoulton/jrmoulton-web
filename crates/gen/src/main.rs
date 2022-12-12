@@ -89,7 +89,7 @@ fn main() {
         file_name: "index".to_string(),
         header: include_str!("../../../templates/header.html"),
         theme_divs: themes.theme_divs(&templ_reg),
-        page_section: String::new(),
+        page_section: String::from(r#"<div class="previews">"#),
     };
     for article in latest_articles.articles {
         index_article.page_section.push_str(
@@ -98,6 +98,7 @@ fn main() {
                 .unwrap(),
         );
     }
+    index_article.page_section.push_str("</div>");
     std::fs::write(
         "build/index.html",
         templ_reg.render("article", &index_article).unwrap(),

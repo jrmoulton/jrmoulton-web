@@ -191,6 +191,41 @@ a, .dropbtn {
     margin: 1rem auto;
 }
 
+.previews {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+}
+.article-preview {
+    background-color: hsl(var(--tsc-main-bg-color-h), calc(var(--tsc-main-bg-color-s) - 5%), calc(var(--tsc-main-bg-color-l) + 10%));
+    padding: 0 3rem;
+    overflow-y: scroll;
+    border-radius: 0.5rem;
+    max-height: 45vh;
+    flex-grow: 1;
+}
+.article-preview a {
+    background-color: hsl(var(--tsc-main-bg-color-h), calc(var(--tsc-main-bg-color-s) - 5%), calc(var(--tsc-main-bg-color-l) + 10%));
+    display: block;
+    width: 100%;
+    margin: 1rem 0;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.8rem;
+    position: sticky;
+    top: 0;
+    z-index: 800;
+}
+@media (max-width: 600px) {
+    .article-preview {
+        padding: 0 1rem 1rem 1rem;
+    }
+    .article-preview a {
+        font-size: 1.4rem;
+    }
+}
+
 .tsc-table-bg {
     font-family: monospace;
     background-color: hsl(var(--tsc-main-bg-color-h), calc(var(--tsc-main-bg-color-s) - 5%), calc(var(--tsc-main-bg-color-l) + 10%));
