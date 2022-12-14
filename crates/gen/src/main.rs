@@ -17,6 +17,8 @@ fn main() {
     fs_extra::dir::copy("styles/", "build/", &dir_copy_options).expect("Failed to copy css");
     fs_extra::dir::copy("js/", "build/", &dir_copy_options)
         .expect("failed to move js to build folder");
+    fs_extra::dir::copy("fonts/", "build/", &dir_copy_options)
+        .expect("failed to move fonts to build folder");
     for icon in std::fs::read_dir("icons/").unwrap() {
         let icon = icon.unwrap();
         fs_extra::file::copy(
@@ -111,17 +113,24 @@ fn write_articles(templ_reg: &mut Handlebars, themes: &mut Themes) -> LatestArti
     let files: Vec<_> = std::fs::read_dir("./content/")
         .expect("couldnt read the content directory")
         .collect();
+
     let theme =
         tree_painter::Theme::from_helix(include_str!("../../../themes/onedark_dark.toml")).unwrap();
+
     let latest_articles = Arc::new(Mutex::new(LatestArticles::new()));
+
     files.par_iter().for_each(|file| {
         let mut date = dateparser::parse("1/1/2000").unwrap();
+
         let article_string = file.as_ref().unwrap();
+
         let input = std::fs::read_to_string(article_string.path()).unwrap();
+
         let mut renderer = tree_painter::Renderer::new(theme.clone());
 
         let mut next_lang = String::new();
         let mut heading = false;
+
         let parser = pulldown_cmark::Parser::new(&input).map(|event| match event {
             Event::Start(pulldown_cmark::Tag::CodeBlock(CodeBlockKind::Fenced(lang))) => {
                 next_lang = lang.to_string();
@@ -160,6 +169,7 @@ fn write_articles(templ_reg: &mut Handlebars, themes: &mut Themes) -> LatestArti
             }
             _ => event,
         });
+
         let mut mark_out = String::new();
         pulldown_cmark::html::push_html(&mut mark_out, parser);
 
@@ -167,6 +177,7 @@ fn write_articles(templ_reg: &mut Handlebars, themes: &mut Themes) -> LatestArti
         let file_name = article_string.path();
         let file_name = file_name.file_stem().unwrap().to_str().unwrap();
         let file_name_cap = titlecase::titlecase(&file_name.replace('_', " "));
+
         let article = Article {
             head: include_str!("../../../templates/head.html"),
             date,
@@ -179,7 +190,6 @@ fn write_articles(templ_reg: &mut Handlebars, themes: &mut Themes) -> LatestArti
         let final_output = templ_reg.render("article", &article).unwrap();
         let mut latest_articles = latest_articles.lock().unwrap();
         latest_articles.add_if_latest(article);
-
         std::fs::write(format!("build/{}.html", file_name), final_output).unwrap();
     });
     let lock = Arc::try_unwrap(latest_articles).expect("Lock still has multiple owners");

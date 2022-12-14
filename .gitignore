@@ -2,4 +2,4 @@
 /Cargo.lock
 build/
 *.scss.map
-
+flamegraph.svg

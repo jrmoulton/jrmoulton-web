@@ -46,13 +46,20 @@ fn write_articles(templ_reg: &mut Handlebars, themes: &mut Themes) -> LatestArti
     let files: Vec<_> = std::fs::read_dir("./content/")
         .expect("couldnt read the content directory")
         .collect();
+
     let theme =
         tree_painter::Theme::from_helix(include_str!("../../../themes/onedark_dark.toml")).unwrap();
+
     let latest_articles = Arc::new(Mutex::new(LatestArticles::new()));
+
     files.par_iter().for_each(|file| {
+
         let mut date = dateparser::parse("1/1/2000").unwrap();
+
         let article_string = file.as_ref().unwrap();
+
         let input = std::fs::read_to_string(article_string.path()).unwrap();
+
         let mut renderer = tree_painter::Renderer::new(theme.clone());
 
         ...

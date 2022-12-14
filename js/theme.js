@@ -35,7 +35,7 @@ function setTheme(button) {
 window.onload = function () {
   let value = localStorage.getItem("theme");
   if (!value) {
-    value = "styles/onedark_dark.css";
+    value = "styles/catppuccin_macchiato.css";
     localStorage.setItem("theme", value);
   }
   document.getElementById("theme").href = value;

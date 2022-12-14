@@ -256,7 +256,8 @@ a, .dropbtn {
 }
 
 .tsc-table-bg {
-    font-family: monospace;
+    font-family: "JetBrainsMono", MonoSpace;
+    font-weight: 300;
     background-color: var(--content-mixed-bg);
     max-width: calc(min(1200px, 70vw));
     line-height: 0.5;
@@ -273,7 +274,7 @@ a, .dropbtn {
     margin: 1rem -0.3rem;
     overflow-x: scroll;
     line-height: 120%;
-    font-size: 0.8rem;
+    font-size: 1rem;
     max-width: calc(min(var(--content-width) + 20rem, 150%));
 }
 @media (max-width: 600px) {
@@ -291,6 +292,13 @@ a, .dropbtn {
     text-align: right;
     color: var(--tsc-comment);
     padding: 0 10px;
+    -webkit-touch-callout: none;
+	  -webkit-user-select: none;
+	  -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select:none;
+    user-select: none;
 }
 
 .tsc-line {
