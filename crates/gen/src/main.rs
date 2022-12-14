@@ -177,7 +177,8 @@ fn write_articles(templ_reg: &mut Handlebars, themes: &mut Themes) -> LatestArti
             page_section: mark_out,
         };
         let final_output = templ_reg.render("article", &article).unwrap();
-        latest_articles.lock().unwrap().add_if_latest(article);
+        let mut latest_articles = latest_articles.lock().unwrap();
+        latest_articles.add_if_latest(article);
 
         std::fs::write(format!("build/{}.html", file_name), final_output).unwrap();
     });

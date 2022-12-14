@@ -75,6 +75,7 @@ a, .dropbtn {
     align-items: center;
     justify-content: space-between;
     position: sticky;
+    /* Make the left and right header sections not touch the edge of page*/
     padding: 0 1rem;
     top: 0;
     z-index: 900;
@@ -85,7 +86,7 @@ a, .dropbtn {
     flex-direction: row;
     align-items: center;
 }
-.header-left a {
+.header-left >a {
     color: var(--link-color);
     background-color: transparent;
     font-size: 0.9rem;
@@ -94,11 +95,12 @@ a, .dropbtn {
     align-items: center;
     text-decoration: none;
 }
-.header-left img {
-    width: 10%;
-    height: 10%;
-    padding: 0.5rem 0.5rem;
-    filter: saturate(70%);
+
+#logo img {
+    margin: auto;
+    display: block;
+    height: 50%;
+    width: 50%;
 }
 
 .header-right {
@@ -210,20 +212,26 @@ a, .dropbtn {
 }
 
 .previews {
+    margin: 2rem auto;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
     align-items: stretch;
+
 }
 .article-preview {
     background-color: var(--content-mixed-bg);
-    padding: 0 3rem;
+    padding: 0 3rem 0.5rem 3rem;
     overflow-y: scroll;
     border-radius: 0.5rem;
-    max-height: 45vh;
-    flex-grow: 1;
+    height: 20rem;
+    transition-duration: 0.2s;
 }
-.article-preview a {
+.article-preview:hover {
+    transform: translateY(-0.3rem);
+}
+
+.article-preview >a {
     background-color: var(--content-mixed-bg);
     display: block;
     width: 100%;

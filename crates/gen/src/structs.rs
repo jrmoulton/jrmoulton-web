@@ -1,9 +1,11 @@
+use std::fmt::Debug;
+
 use chrono::{DateTime, Utc};
 use handlebars::Handlebars;
 use serde::ser::SerializeStruct;
 use serde::Serialize;
 
-#[derive(Default, Clone, Debug)]
+#[derive(Default, Clone)]
 pub struct Article {
     pub head: &'static str,
     pub date: DateTime<Utc>,
@@ -13,9 +15,11 @@ pub struct Article {
     pub theme_divs: String,
     pub page_section: String,
 }
-impl Article {
-    pub(crate) fn new() -> Self {
-        Self::default()
+impl Debug for Article {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("Article")
+            .field("date", &self.date)
+            .finish_non_exhaustive()
     }
 }
 impl Serialize for Article {
@@ -83,8 +87,8 @@ pub struct ArticlePreview {
 
 impl From<Article> for ArticlePreview {
     fn from(article: Article) -> Self {
-        let article_link = format!("build/{}.html", article.file_name);
-        let re = regex::Regex::new(r#"<\s*p[^>]*>([^<]*)<\s*/\s*p\s*>"#).unwrap();
+        let article_link = format!("/{}.html", article.file_name);
+        let re = regex::Regex::new(r"<p>(.*?)</p>").unwrap();
         let short_content: String = re
             .captures_iter(&article.page_section)
             .take(2)
@@ -109,20 +113,9 @@ impl LatestArticles {
     }
 
     pub fn add_if_latest(&mut self, article: Article) {
-        let mut pop = false;
-        match self.articles.first() {
-            Some(last) => {
-                if article.date > last.date {
-                    if self.articles.len() > 9 {
-                        pop = true;
-                    }
-                    self.articles.push(article);
-                }
-            }
-            None => self.articles.push(article),
-        }
+        self.articles.push(article);
         self.articles.sort_by(|a, b| b.date.cmp(&a.date));
-        if pop {
+        if self.articles.len() > 9 {
             self.articles.pop();
         }
     }
