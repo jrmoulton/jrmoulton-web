@@ -80,6 +80,11 @@ a, .dropbtn {
     z-index: 900;
 }
 
+.header-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 .header-left a {
     color: var(--link-color);
     background-color: transparent;
@@ -89,6 +94,13 @@ a, .dropbtn {
     align-items: center;
     text-decoration: none;
 }
+.header-left img {
+    width: 10%;
+    height: 10%;
+    padding: 0.5rem 0.5rem;
+    filter: saturate(70%);
+}
+
 .header-right {
     flex-shrink: 0;
 }

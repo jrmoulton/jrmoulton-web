@@ -26,6 +26,7 @@ fn main() {
         )
         .expect("failed to copy icon to build folder");
     }
+    fs_extra::file::copy("files/resume.pdf", "build/resume.pdf", &file_copy_options).unwrap();
 
     // Register the templates
     let mut templ_reg = Handlebars::new();
