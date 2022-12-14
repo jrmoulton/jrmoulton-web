@@ -136,11 +136,7 @@ impl Renderer {
         }
 
         for (index, style) in &self.theme.style_map {
-            root_str.push_str(&format!(
-                "--tsc-{}: {}; ",
-                HIGHLIGHT_NAMES[*index].replace('.', "_"),
-                style.color
-            ));
+            root_str.push_str(&Self::get_hsl_values(*index, &style.color));
             let _ = write!(
                 css,
                 ".tsc-{} {{ color: var(--tsc-{}); ",
@@ -162,6 +158,17 @@ impl Renderer {
         css.push_str(".tsc-line { word-wrap: normal; white-space: pre; }\n");
         root_str.push_str("}\n");
         root_str + &css
+    }
+
+    fn get_hsl_values(index: usize, color: &str) -> String {
+        let hsl_color = colors_transform::Rgb::from_hex_str(color).unwrap().to_hsl();
+        let highlight_name = HIGHLIGHT_NAMES[index].replace('.', "_");
+        format!(
+            "--tsc-{highlight_name}: {color}; --tsc-{highlight_name}-h: {}; --tsc-{highlight_name}-s: {}%; --tsc-{highlight_name}-l: {}%; ",
+            hsl_color.get_hue(),
+            hsl_color.get_saturation(),
+            hsl_color.get_lightness()
+        )
     }
 
     /// Render `source` based on the `lang`.
