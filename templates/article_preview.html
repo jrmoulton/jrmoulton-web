@@ -1,15 +1,5 @@
 
-<div class="article-preview" id="{{article-title-preview}}">
-	<script>
-		const isTextSelected = window.getSelection().toString();
-		this.addEventListener("click", handleClick);
-		function handleClick(event) {
-		  const isTextSelected = window.getSelection().toString();
-		  if (!isTextSelected) {
-		    "{{article_link}}".click();
-		  }
-		}
-	</script>
+<div class="article-preview" style="cursor: pointer" onclick="const selection = window.getSelection(); if(selection.toString().length !== 0) {return;} window.open('{{article_link}}', '_self')">
 	<a class="preview-title-link" href="{{article_link}}">{{article_title}}</a>
 	<div>meta</div>
 	{{{short_content}}}

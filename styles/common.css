@@ -96,6 +96,10 @@ a, .dropbtn {
     text-decoration: none;
 }
 
+#logo {
+    padding: 0.5em 0.5rem;
+}
+
 #logo img {
     margin: auto;
     display: block;
@@ -127,7 +131,6 @@ a, .dropbtn {
     background-color: var(--hover-color);
 }
 .header-right >*:hover {
-    /*background-color: hsl(var(--tsc-main-bg-color-h), calc(var(--tsc-main-bg-color-s) - 20%), calc(var(--tsc-main-bg-color-l) + 10%));*/
     background-color: var(--hover-color);
 }
 
