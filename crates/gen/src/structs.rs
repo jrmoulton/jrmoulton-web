@@ -77,14 +77,31 @@ impl Theme {
     }
 }
 
-#[derive(Default, Debug, Serialize)]
+#[derive(Default, Debug)]
 pub struct ArticlePreview {
     theme_divs: String,
+    date: DateTime<Utc>,
     article_link: String,
     article_title: String,
     short_content: String,
 }
-
+impl Serialize for ArticlePreview {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        let mut state = serializer.serialize_struct("ArticlePreview", 6)?;
+        state.serialize_field("theme_divs", &self.theme_divs)?;
+        state.serialize_field(
+            "date",
+            &self.date.date_naive().format("%B %-d, %C%y").to_string(),
+        )?;
+        state.serialize_field("article_link", &self.article_link)?;
+        state.serialize_field("article_title", &self.article_title)?;
+        state.serialize_field("short_content", &self.short_content)?;
+        state.end()
+    }
+}
 impl From<Article> for ArticlePreview {
     fn from(article: Article) -> Self {
         let article_link = format!("/{}.html", article.file_name);
@@ -96,6 +113,7 @@ impl From<Article> for ArticlePreview {
             .collect();
         Self {
             theme_divs: article.theme_divs,
+            date: article.date,
             article_link,
             article_title: article.file_name_cap,
             short_content,

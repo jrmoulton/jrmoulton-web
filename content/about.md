@@ -1,5 +1,7 @@
 # A new blog
 
+It is time.
+
 A few years ago when I was first learning programming I thought often about how useful it would be to write down the information I was learning from the perspective of a newbie because I knew what the actual difficulties were for a beginner. 
 
 But, alas, I was too busy learning programming to actually write about it. So now a few years have gone by, I'm not so much of a begginer anymore and this probably isn't going to be as useful as it once was... but here we are. And I'm doing it. 
