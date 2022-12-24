@@ -1,9 +1,4 @@
-use axum::{
-    http::StatusCode,
-    response::IntoResponse,
-    routing::{get, get_service},
-    Router,
-};
+use axum::{http::StatusCode, response::IntoResponse, routing::get_service, Router};
 use notify::{Config, Event, RecommendedWatcher, RecursiveMode, Watcher};
 use std::path::Path;
 use std::{io, net::SocketAddr};
@@ -43,10 +38,7 @@ fn using_serve_dir() -> Router {
     // You can use `ServeDir` directly to further customize your setup
     let serve_dir = get_service(ServeDir::new("build")).handle_error(handle_error);
 
-    Router::new()
-        .route("/foo", get(|| async { "Hi from /foo" }))
-        .nest_service("/build", serve_dir.clone())
-        .fallback_service(serve_dir)
+    Router::new().nest_service("/", serve_dir.clone())
 }
 
 async fn handle_error(_err: io::Error) -> impl IntoResponse {

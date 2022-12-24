@@ -14,9 +14,12 @@ fn main() {
     let mut file_copy_options = fs_extra::file::CopyOptions::new();
     file_copy_options.overwrite = true;
     let _ = fs_extra::dir::create("build/", false);
+    let _ = fs_extra::dir::create("build/articles/", false);
     fs_extra::dir::copy("styles/", "build/", &dir_copy_options).expect("Failed to copy css");
     fs_extra::dir::copy("js/", "build/", &dir_copy_options)
         .expect("failed to move js to build folder");
+    fs_extra::dir::copy("images/", "build/", &dir_copy_options)
+        .expect("failed to move images to build folder");
     fs_extra::dir::copy("fonts/", "build/", &dir_copy_options)
         .expect("failed to move fonts to build folder");
     for icon in std::fs::read_dir("icons/").unwrap() {
@@ -148,9 +151,7 @@ fn write_articles(templ_reg: &mut Handlebars, themes: &mut Themes) -> LatestArti
             }
             Event::Text(code) if !next_lang.is_empty() => {
                 let lang = tree_painter::Lang::from_name(&next_lang).unwrap();
-                let mut code_str = String::new();
-                code_str.push_str(&renderer.render(&lang, code.as_bytes()).unwrap());
-                Event::Html(code_str.into())
+                Event::Html(renderer.render(&lang, code.as_bytes()).unwrap().into())
             }
             Event::End(pulldown_cmark::Tag::CodeBlock(CodeBlockKind::Fenced(lang)))
                 if lang.to_string() == next_lang =>
@@ -190,7 +191,7 @@ fn write_articles(templ_reg: &mut Handlebars, themes: &mut Themes) -> LatestArti
         let final_output = templ_reg.render("article", &article).unwrap();
         let mut latest_articles = latest_articles.lock().unwrap();
         latest_articles.add_if_latest(article);
-        std::fs::write(format!("build/{}.html", file_name), final_output).unwrap();
+        std::fs::write(format!("build/articles/{}.html", file_name), final_output).unwrap();
     });
     let lock = Arc::try_unwrap(latest_articles).expect("Lock still has multiple owners");
     lock.into_inner().expect("Mutex cannot be locked")

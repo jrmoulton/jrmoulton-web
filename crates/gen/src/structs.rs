@@ -104,12 +104,12 @@ impl Serialize for ArticlePreview {
 }
 impl From<Article> for ArticlePreview {
     fn from(article: Article) -> Self {
-        let article_link = format!("/{}.html", article.file_name);
-        let re = regex::Regex::new(r"<p>(.*?)</p>").unwrap();
+        let article_link = format!("/articles/{}.html", article.file_name);
+        let re = regex::Regex::new(r"(?s:<p>(.*?)</p>)").unwrap();
         let short_content: String = re
             .captures_iter(&article.page_section)
             .take(2)
-            .map(|p| format!(r"{}", p.get(0).unwrap().as_str()))
+            .map(|p| p.get(0).unwrap().as_str().to_string())
             .collect();
         Self {
             theme_divs: article.theme_divs,

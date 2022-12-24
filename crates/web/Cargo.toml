@@ -15,3 +15,4 @@ tower-http = { version = "0.3.0", features = ["fs", "trace"] }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 notify = { version = "5.0.0", default-features = true }
+hyper = "0.14.23"

@@ -213,6 +213,10 @@ a, .dropbtn {
     max-width: var(--content-width);
     margin: 1rem auto;
 }
+.page-section p img {
+    max-width: var(--content-width);
+    margin: 1rem auto;
+}
 
 .previews {
     margin: 2rem auto;
@@ -259,10 +263,8 @@ a, .dropbtn {
     font-family: "JetBrainsMono", MonoSpace;
     font-weight: 300;
     background-color: var(--content-mixed-bg);
-    max-width: calc(min(1200px, 70vw));
     line-height: 0.5;
     overflow-x: auto;
-    border: 2px;
     max-width: calc(var(--content-width) + 20rem);
     padding-bottom: 0.3rem;
     border: 0.5px solid #abb2bf;
