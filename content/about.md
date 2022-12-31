@@ -17,6 +17,8 @@ The goal for this blog is to write about things as I learn them, not create tuto
 I hope to be able to capture the insights that I'll gain when I first start learning a new thing and
 share them in a way that is both informational and entertaining.  
 
+This is an internal [anchor link](#A-new-blog)
+
 In the next year or two I have a large number of goals for things that I would like to learn and
 accomplish. Such as...
 

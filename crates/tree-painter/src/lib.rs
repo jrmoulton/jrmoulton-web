@@ -1,9 +1,10 @@
-//! tree-painter – a source code syntax highlighting library based on tree-sitter and Helix editor
-//! themes and rendering to HTML and CSS.
+//! tree-painter – a source code syntax highlighting library based on
+//! tree-sitter and Helix editor themes and rendering to HTML and CSS.
 //!
-//! Unlike [syntect] which uses a regex-based parser and Sublime-2-based theme definitions,
-//! tree-painter employs [tree-sitter] to parse source code quickly and correctly as well as [Helix
-//! TOML themes] to match colors and text styles with recognized language items.
+//! Unlike [syntect] which uses a regex-based parser and Sublime-2-based theme
+//! definitions, tree-painter employs [tree-sitter] to parse source code quickly
+//! and correctly as well as [Helix TOML themes] to match colors and text styles
+//! with recognized language items.
 //!
 //! [syntect]: https://github.com/trishume/syntect
 //! [tree-sitter]: https://tree-sitter.github.io/tree-sitter
@@ -37,21 +38,22 @@
 //! # let data = std::fs::read_to_string("catppuccin.toml").unwrap();
 //! # let theme = tree_painter::Theme::from_helix(&data).unwrap();
 //! let mut renderer = tree_painter::Renderer::new(theme);
-//! let source =  std::fs::read_to_string("file.rs").unwrap();
+//! let source = std::fs::read_to_string("file.rs").unwrap();
 //!
 //! for line in renderer.render(&rust_lang, source.as_bytes()).unwrap() {
 //!     println!("{line}");
 //! }
 //! ```
 //!
-//! Note that each line is formatted using `<span>`s and CSS classes. In order to map the CSS
-//! classes to the theme's color include the output of [`Renderer::css()`] appropriately.
+//! Note that each line is formatted using `<span>`s and CSS classes. In order
+//! to map the CSS classes to the theme's color include the output of
+//! [`Renderer::css()`] appropriately.
 //!
 //! # Feature flags
 //!
-//! The default feature flag enables support for all tree-sitter grammars supporting tree-sitter
-//! 0.20 as well as a couple of bundled [`themes`]. You can opt out and enable
-//! specific grammars to reduce bloat with
+//! The default feature flag enables support for all tree-sitter grammars
+//! supporting tree-sitter 0.20 as well as a couple of bundled [`themes`]. You
+//! can opt out and enable specific grammars to reduce bloat with
 //!
 //! ```toml
 //! [dependencies]
@@ -59,6 +61,7 @@
 //! ```
 
 use std::path::Path;
+
 use tree_sitter_highlight::HighlightConfiguration;
 
 mod error;
@@ -328,7 +331,7 @@ impl Lang {
             Lang::CSharp => {
                 HighlightConfiguration::new(tree_sitter_c_sharp::language(), "", "", "")
                     .expect("loading tree-sitter-c-sharp")
-            }
+            },
             // #[cfg(feature = "tree-sitter-clojure")]
             // Lang::Clojure => HighlightConfiguration::new(
             //     tree_sitter_clojure::language(),
@@ -357,7 +360,7 @@ impl Lang {
             Lang::Docker => {
                 HighlightConfiguration::new(tree_sitter_dockerfile::language(), "", "", "")
                     .expect("loading tree-sitter-dockerfile")
-            }
+            },
             #[cfg(feature = "tree-sitter-go")]
             Lang::Go => HighlightConfiguration::new(
                 tree_sitter_go::language(),

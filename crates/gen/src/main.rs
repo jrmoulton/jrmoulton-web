@@ -1,27 +1,37 @@
+mod article;
+mod theme;
+
 use std::sync::{Arc, Mutex};
 
+use article::{Article, ArticlePreview, LatestArticles};
 use handlebars::Handlebars;
 use pulldown_cmark::{CodeBlockKind, Event};
 use rayon::prelude::*;
-
-mod structs;
-use structs::*;
+use theme::{Theme, Themes};
 
 fn main() {
-    // Copy css and javascript over to the build folder
-    let mut dir_copy_options = fs_extra::dir::CopyOptions::new();
-    dir_copy_options.overwrite = true;
-    let mut file_copy_options = fs_extra::file::CopyOptions::new();
-    file_copy_options.overwrite = true;
+    // delete the current build folder
+    let _ = std::fs::remove_dir_all("build");
+
+    // Create the build folder
     let _ = fs_extra::dir::create("build/", false);
     let _ = fs_extra::dir::create("build/articles/", false);
-    fs_extra::dir::copy("styles/", "build/", &dir_copy_options).expect("Failed to copy css");
-    fs_extra::dir::copy("js/", "build/", &dir_copy_options)
-        .expect("failed to move js to build folder");
-    fs_extra::dir::copy("images/", "build/", &dir_copy_options)
-        .expect("failed to move images to build folder");
-    fs_extra::dir::copy("fonts/", "build/", &dir_copy_options)
-        .expect("failed to move fonts to build folder");
+
+    // Copy directories to build folder
+    let dir_copy_options = fs_extra::dir::CopyOptions {
+        overwrite: true,
+        ..Default::default()
+    };
+    for folder in vec!["styles", "js", "images", "fonts", "files"] {
+        fs_extra::dir::copy(folder, "build/", &dir_copy_options)
+            .expect("Failed to copy {folder} folder to build folder");
+    }
+
+    // Copy some files
+    let file_copy_options = fs_extra::file::CopyOptions {
+        overwrite: true,
+        ..Default::default()
+    };
     for icon in std::fs::read_dir("icons/").unwrap() {
         let icon = icon.unwrap();
         fs_extra::file::copy(
@@ -31,28 +41,17 @@ fn main() {
         )
         .expect("failed to copy icon to build folder");
     }
-    fs_extra::file::copy("files/resume.pdf", "build/resume.pdf", &file_copy_options).unwrap();
 
     // Register the templates
     let mut templ_reg = Handlebars::new();
-    templ_reg
-        .register_template_string(
-            "theme_div",
-            include_str!("../../../templates/theme_div.html"),
-        )
-        .unwrap();
-    templ_reg
-        .register_template_string("article", include_str!("../../../templates/article.html"))
-        .unwrap();
-    templ_reg
-        .register_template_string(
-            "article_preview",
-            include_str!("../../../templates/article_preview.html"),
-        )
-        .unwrap();
-    templ_reg
-        .register_template_string("index", include_str!("../../../templates/index.html"))
-        .unwrap();
+    for template in vec!["theme_div", "article", "article_preview", "index"] {
+        templ_reg
+            .register_template_string(
+                template,
+                std::fs::read_to_string(format!("templates/{template}.html")).unwrap(),
+            )
+            .unwrap();
+    }
 
     // Get all the themes
     let mut themes = Themes::default();
@@ -68,9 +67,7 @@ fn main() {
             .to_str()
             .unwrap()
             .to_string();
-        themes.themes.push(Theme {
-            base_name: theme_base_name,
-        });
+        themes.themes.push(Theme { base_name: theme_base_name });
     }
     // Generate the css from the themes
     for theme in &themes.themes {
@@ -81,13 +78,11 @@ fn main() {
         .unwrap();
     }
 
-    // sort the themes so that they are in alphabetical order when the site is generated
+    // sort the themes so that they are in alphabetical order when the site is
+    // generated
     themes.sort_themes();
 
     let latest_articles = write_articles(&mut templ_reg, &mut themes);
-    // things I need for an index.html
-    //
-    // A full article
     let mut index_article = Article {
         head: include_str!("../../../templates/head.html"),
         date: dateparser::parse("12/12/2022").unwrap(),
@@ -138,7 +133,7 @@ fn write_articles(templ_reg: &mut Handlebars, themes: &mut Themes) -> LatestArti
             Event::Start(pulldown_cmark::Tag::CodeBlock(CodeBlockKind::Fenced(lang))) => {
                 next_lang = lang.to_string();
                 Event::SoftBreak
-            }
+            },
             Event::Text(code) if next_lang == "date" => {
                 date = dateparser::parse(code.trim()).unwrap();
                 Event::Html(
@@ -148,26 +143,26 @@ fn write_articles(templ_reg: &mut Handlebars, themes: &mut Themes) -> LatestArti
                     )
                     .into(),
                 )
-            }
+            },
             Event::Text(code) if !next_lang.is_empty() => {
                 let lang = tree_painter::Lang::from_name(&next_lang).unwrap();
                 Event::Html(renderer.render(&lang, code.as_bytes()).unwrap().into())
-            }
+            },
             Event::End(pulldown_cmark::Tag::CodeBlock(CodeBlockKind::Fenced(lang)))
                 if lang.to_string() == next_lang =>
             {
                 next_lang = "".to_string();
                 Event::SoftBreak
-            }
+            },
             Event::Start(pulldown_cmark::Tag::Heading(inner1, inner2, inner3)) => {
                 heading = true;
                 Event::Start(pulldown_cmark::Tag::Heading(inner1, inner2, inner3))
-            }
+            },
             Event::Text(text) if heading => Event::Text(titlecase::titlecase(&text).into()),
             Event::End(pulldown_cmark::Tag::Heading(inner1, inner2, inner3)) => {
                 heading = false;
                 Event::End(pulldown_cmark::Tag::Heading(inner1, inner2, inner3))
-            }
+            },
             _ => event,
         });
 

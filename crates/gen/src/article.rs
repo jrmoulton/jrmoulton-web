@@ -1,9 +1,7 @@
 use std::fmt::Debug;
 
 use chrono::{DateTime, Utc};
-use handlebars::Handlebars;
-use serde::ser::SerializeStruct;
-use serde::Serialize;
+use serde::{ser::SerializeStruct, Serialize};
 
 #[derive(Default, Clone)]
 pub struct Article {
@@ -24,9 +22,7 @@ impl Debug for Article {
 }
 impl Serialize for Article {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
+    where S: serde::Serializer {
         let mut state = serializer.serialize_struct("Article", 6)?;
         state.serialize_field("head", &self.head)?;
         state.serialize_field(
@@ -46,37 +42,6 @@ impl Serialize for Article {
     }
 }
 
-#[derive(Default)]
-pub struct Themes {
-    pub themes: Vec<Theme>,
-}
-impl Themes {
-    pub fn theme_divs(&self, registry: &Handlebars) -> String {
-        let mut divs_string = String::new();
-        // self.themes.sort();
-        for theme in &self.themes {
-            divs_string.push_str(&registry.render("theme_div", &theme).unwrap());
-        }
-        divs_string
-    }
-    pub fn sort_themes(&mut self) {
-        self.themes.sort();
-    }
-}
-
-#[derive(Default, Clone, Serialize, PartialEq, PartialOrd, Ord, Eq)]
-pub struct Theme {
-    pub base_name: String,
-}
-impl Theme {
-    pub fn tree_painter_theme(&self) -> tree_painter::Theme {
-        tree_painter::Theme::from_helix(
-            &std::fs::read_to_string(format!("./themes/{}.toml", &self.base_name)).unwrap(),
-        )
-        .unwrap()
-    }
-}
-
 #[derive(Default, Debug)]
 pub struct ArticlePreview {
     theme_divs: String,
@@ -87,9 +52,7 @@ pub struct ArticlePreview {
 }
 impl Serialize for ArticlePreview {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
+    where S: serde::Serializer {
         let mut state = serializer.serialize_struct("ArticlePreview", 6)?;
         state.serialize_field("theme_divs", &self.theme_divs)?;
         state.serialize_field(
@@ -104,9 +67,11 @@ impl Serialize for ArticlePreview {
 }
 impl From<Article> for ArticlePreview {
     fn from(article: Article) -> Self {
+        lazy_static::lazy_static! {
+            static ref RE: regex::Regex = regex::Regex::new(r"(?s:<p>(.*?)</p>)").unwrap();
+        }
         let article_link = format!("/articles/{}.html", article.file_name);
-        let re = regex::Regex::new(r"(?s:<p>(.*?)</p>)").unwrap();
-        let short_content: String = re
+        let short_content: String = RE
             .captures_iter(&article.page_section)
             .take(2)
             .map(|p| p.get(0).unwrap().as_str().to_string())

@@ -1,9 +1,11 @@
-use crate::renderer::HIGHLIGHT_NAMES;
-use crate::Error;
-use std::collections::HashMap;
-use std::convert::From;
-use toml::value::{Map, Table};
-use toml::Value;
+use std::{collections::HashMap, convert::From};
+
+use toml::{
+    value::{Map, Table},
+    Value,
+};
+
+use crate::{renderer::HIGHLIGHT_NAMES, Error};
 
 #[derive(Clone)]
 pub(crate) struct Style {
@@ -37,8 +39,9 @@ impl Theme {
     ///
     /// # Errors
     ///
-    /// If the theme cannot be parsed either because it is not a TOML file or does not adhere to
-    /// the Helix syntax expectations, this function returns an [`Error`].
+    /// If the theme cannot be parsed either because it is not a TOML file or
+    /// does not adhere to the Helix syntax expectations, this function
+    /// returns an [`Error`].
     pub fn from_helix(data: &str) -> Result<Self, Error> {
         let root = match data.parse::<toml::Value>()? {
             Value::Table(table) => table,
@@ -64,7 +67,7 @@ impl Theme {
                         if let Some(Value::String(color)) = palette.get(reference) {
                             return Ok(Some(Style::from(color)));
                         }
-                    }
+                    },
                     Value::Table(table) => {
                         let mut style = referenced_color(table, "fg")?;
 
@@ -81,8 +84,8 @@ impl Theme {
                         }
 
                         return Ok(Some(style));
-                    }
-                    _ => {}
+                    },
+                    _ => {},
                 }
             }
 

@@ -1,8 +1,9 @@
-use crate::{theme, Error, Lang};
+use std::{collections::HashMap, fmt::Write};
+
 use colors_transform::Color;
-use std::collections::HashMap;
-use std::fmt::Write;
 use tree_sitter_highlight::{Highlight, HighlightConfiguration, Highlighter, HtmlRenderer};
+
+use crate::{theme, Error, Lang};
 
 pub(crate) const HIGHLIGHT_NAMES: [&str; 59] = [
     "annotation",
@@ -97,8 +98,8 @@ impl Renderer {
         }
     }
 
-    /// Generate CSS block to be included in the `<style></style>` block or in an external CSS
-    /// file.
+    /// Generate CSS block to be included in the `<style></style>` block or in
+    /// an external CSS file.
     pub fn css(&self) -> String {
         let mut root_str = String::new();
         let mut css = String::new();
@@ -184,7 +185,7 @@ impl Renderer {
                 config.configure(&HIGHLIGHT_NAMES);
                 self.configs.insert(lang.clone(), config);
                 self.configs.get(lang).unwrap()
-            }
+            },
         };
 
         let mut highlighter = Highlighter::new();

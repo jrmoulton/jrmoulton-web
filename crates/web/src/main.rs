@@ -1,7 +1,7 @@
+use std::{io, net::SocketAddr, path::Path};
+
 use axum::{http::StatusCode, response::IntoResponse, routing::get_service, Router};
 use notify::{Config, Event, RecommendedWatcher, RecursiveMode, Watcher};
-use std::path::Path;
-use std::{io, net::SocketAddr};
 use tokio::sync::mpsc::{channel, Receiver};
 use tower_http::{services::ServeDir, trace::TraceLayer};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
@@ -98,8 +98,8 @@ async fn async_watch<P: AsRef<Path>>(path: P) {
                         .await
                         .unwrap();
                     println!("Generated code");
-                }
-                _ => {}
+                },
+                _ => {},
             },
             Err(e) => println!("watch error: {:?}", e),
         }
