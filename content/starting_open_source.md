@@ -105,24 +105,20 @@ a PR and working with git to the point that I thought...
 
 ### More work with slint
 
-Since that first PR I've been able to open a few other PR's on the slint project.
-
-But on these ones I actually dug into the code.
+Since that first PR I've been able to open a few other PR's on the slint project but on these I
+actually dug into the code.
 
 When I was working on these PRs I still had no idea how to grok a codebase that I hadn't personally
-written and I was fairly new to Rust at the time.
+written **_and_** I was fairly new to Rust at the time.
 
-Slowly bit by bit I was able to find my way around the codebase and find the relevant parts of the
-code.
+Slowly, bit by bit (haha), I was able to find my way around the codebase and find the relevant parts
+of the code.
 
-Funny Side note: This was probably the first time that I really realized how useful "Goto
-Definition" could be.
+- Funny Side note: This was probably the first time that I really realized how useful "Goto
+  Definition" could be.
 
 One of the code changes that I made that was actually merged was adding some built-in functions to
 the slint language.
-
-It took a while to find all of the different places in the codebase that needed to be changes to
-implement the new features but the result was satisfying.
 
 ```rust
     Expression::BuiltinFunctionReference(BuiltinFunction::Log, _) => {
@@ -140,41 +136,56 @@ implement the new features but the result was satisfying.
 This was the largest essential change in the PR where the functionality for `pow` and `log`
 functions were added to be language built-ins.
 
-Looking back there are things I would change for this PR (mostly involving better error handling)
-but I'm definitely still happy with it.
+- Looking back there are things I would change for this PR (mostly involving better error handling).
 
 And again, the slint maintainers were awesoeme to work with and answer my questions. <br>#notanad
 
-### Work with esp-hal
+After getting this work done something magical happened...
+
+### Work with ESP-HAL
 
 My work with esp-hal started after I got my first internship!
 
 Thank you, thank you. You're too kind. Hold the applause please.
 
 Haha jokes aside I was super happy to have my first internship. I was working as a firmware
-engineering intern in C for some internal company tools. It was a pretty cool opportunity because it
+engineering intern in C for some internal company tools. It was an awesome opportunity because it
 was a brand new project that myself and another itern built mostly from scratch.
 
-While I was working there I started to really fall in love with embedded development and I wanted to
-add some more Rust to my life.
+While I was working there I started to really fall in love with embedded development and,
+simultaneously, I wanted to add some more Rust to my life.
 
 So that's what I did.
 
-I started off by trying to get an LED to blink on the same hardware as I was using in my work
-project but there wasn't any pre-existing support for it in Rust. So I spent a very long time trying
-to figure out how to get support for it and one day it worked!!!
+I tried getting an LED to blink using a microcontroller that had no existing support in rust.
+
+And wow. I did know what I was in for
+
+It was tons of time
+
+- digging through datasheets
+- tracking down svd files
+- learning a whole new world of embedded rust
+- digging through datasheets
+- learning how microcontroller cpu's control peripherals (such as GPIO pins)
+- and still digging through datasheets
+
+I spent a very long time trying to figure out how to get support for it and one day it worked!!!
 
 The LED BLINKED!!!!
 
-It was probably in the top 3 most magical moments of my life. I had blinked LED's before using an
-arduino but I had made this thing work by following a datasheet and building periphal access crates
-and writing to registers and AN LED BLINKED!!! I probably just ranted about how cool it was for at
-least 2 hours. After saying "IT WORKS!!" and "THE LED BLINKS" for probably the 300th time I knew my
-wife must truly love me because she was still replying with "Wow. Yeah that's really cool."
+It was probably in the top 3 most magical moments of my life.
+
+I had blinked LED's before using an arduino but **_I_** had made this thing work by following a
+datasheet and building periphal access crates and writing to registers and AN LED BLINKED!!!
+
+I probably just ranted about how cool it was for at least 2 hours. After saying "IT WORKS!!" and
+"THE LED BLINKS" for probably the 300th time I knew my wife must truly love me because she was still
+replying with "Wow. Yeah that's really cool."
 
 Unfortunately I can't find the original code that I used to blink the led and figuring it out again
 would involve digging into the datasheet to see exactly what bits need to be set but it would have
-started about like this
+started about like this (after finally generating a peripheral access crate from an svd file)
 
 ```rust
 #![no_std]
@@ -197,6 +208,9 @@ fn main() -> ! {
 
 ```
 
+This code gets a global singleton of the peripherals and then sets both a configuration register to
+control the pin drive mode and sets another register with the data to set the pin high.
+
 All this work led me to find projects that had already built out a lot of support for chips in rust
 in the form of "Hardware Abstraction Layers" or "HALS". So far my favorite of these is the ESP-HAL.
 
@@ -211,9 +225,11 @@ now it really is as easy as writing the device driver once and using it on every
 Now, there is an awesome series of fairly cheap but powerful microcontrollers from espressif... and
 rust is awesome...
 
-So enter ESP-HAL.
+So back to the purpose of this section...
 
-It is rust support for the espressif microcontrollers that is open source and sponsored by espressif
+### ESP-HAL.
+
+ESP-HAL is rust support for espressif microcontrollers. It's open source and sponsored by espressif
 with developers actively working on the project.
 
 I was building a device driver for a digital to analog converter
@@ -246,8 +262,8 @@ functions.
 
 Essentially it allows users of the HAL to call two functions.
 
-The `write` function takes in any stream of bytes and have them transferred over the SPI protocol
-using the devices built in hardware SPI controller.
+The `write` function takes in any stream of bytes and transfers them over the SPI protocol using the
+device's built in hardware SPI controller.
 
 The `flush` function ensures that the bus is free (allowing the user to know that the transfer has
 finished).
@@ -311,8 +327,7 @@ It takes the stream of bytes and chucks them in 64 byte chuncks and then fills t
 with that data and then sets a flag bit on a control register that allows the device to start
 sending data that is in the registers.
 
-The code I wrote was later improved on by another contributer to the project but I was quite
-impressed with the code I wrote.
+- The code I wrote was later improved on
 
 Oh, and then it totally worked for me!
 
@@ -462,7 +477,7 @@ MemoryTile := Rectangle {
 (This is actually just trying to highlight this as css but it's pretty close to what it looked like
 before)
 
-Wow. I've got a thing for good syntax highlighting.
+- Dang. I've got a thing for good syntax highlighting.
 
 ## Closing thoughts
 
