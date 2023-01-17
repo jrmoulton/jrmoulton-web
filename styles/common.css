@@ -22,10 +22,6 @@ body {
     Roboto, Oxygen-Sans, Ubuntu, Cantarell,
     "Helvetica Neue", sans-serif;
   background-color: var(--tsc-main-bg-color);
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  min-height: 100vh;
 }
 
 h1 {
@@ -223,7 +219,6 @@ a,
   padding: 0 2rem;
   line-height: 1.9;
   display: block;
-  flex-grow: 1;
 }
 
 .page-section>* {
@@ -282,7 +277,6 @@ a,
 }
 
 .footer {
-  align-self: flex-end;
   width: 100%;
   background-color: var(--header-background);
   display: flex;
