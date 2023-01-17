@@ -71,6 +71,13 @@ a,
   }
 }
 
+blockquote {
+  background-color: var(--content-mixed-bg);
+  text-indent: 1rem;
+  font-weight: 600;
+  border-radius: 0.3rem;
+}
+
 .header {
   background-color: var(--header-background);
   margin: 0;

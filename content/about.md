@@ -6,7 +6,7 @@ develop = false
 
 It is time.
 
-A few years ago when I was first learning programming I thought often about how useful it would be
+A few years ago when I was first learning programming I often thought about how useful it would be
 to write down the information I was learning from the perspective of a newbie because I _**knew**_
 what the actual difficulties were for a beginner.
 
@@ -26,9 +26,9 @@ accomplish. Such as...
 
 - Designing a keyboard from scratch. This includes
 
-  - Designing with 3d modeling software the housing
-  - Designing the PCB (I'll have someone else print it)
-  - Writing the firmware from kind of scratch in rust.
+  - Designing the housing with 3d modeling software
+  - Designing the PCB
+  - Writing the firmware (from kind of scratch) in rust.
 
 - Building the blog engine that I'll use to make this blog awesome (or at least as aweosme as a
   programming blog can be).
@@ -38,8 +38,8 @@ accomplish. Such as...
   embedded-hal drivers like my [DACx0501 driver](https://github.com/jrmoulton/dacx0501) and continue
   to work on [esp-hal](https://github.com/esp-rs/esp-hal).
 
-  Ideally having this blog will motivate me to work on and finish larger scale projects as I write
-  and incrementally publish what I've worked on.
+Ideally having this blog will motivate me to work on and finish larger scale projects as I write and
+incrementally publish what I've worked on.
 
 ## Where this blog currently is
 
@@ -55,7 +55,7 @@ do this because I want more control over syntax highlighting
 ## A jump to the future
 
 Wow! Check out this blog! It's come quite a ways since I wrote that I was just writing markdown in
-neovim clear back in August.
+neovim clear back in August (it's December now).
 
 I mean, look at me know! I'm still writing markdown!
 
@@ -97,7 +97,7 @@ the website theme.
 
 Defnitely one of the first articles that I write in the near future will be how I built this static
 site generator and all of the things I've been figuring out. I've learned how to generate all the
-things, format them and get some pretty good theming going! (check out the theme button...)
+things, format them, and get some pretty good theming going! (check out the theme button...)
 
 I'll be writing about these things as I learn them because, again, the whole point is to capture the
 ideas while they are fresh. So follow me on [twitter](https://twitter.com/jrmoulton3)! I'm

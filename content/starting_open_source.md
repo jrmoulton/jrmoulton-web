@@ -4,17 +4,10 @@ develop = false
 
 # My experience starting with open source
 
-Ultimately, this article is the culprit.
+This is it.
 
-It isn't guilty of forcing me to to start my open source work, or even to write about it... but
-rather of making me spend a ton of time building a site generator to make it look pretty
-
-And boy does it look pretty.
-
-But that's not what this article is about.
-
-This is the article that made me want to actually put in the effort to create this blog (the content
-I mean, not necessarily the the site generator) and this is the fateful story.
+This is the article that made me want to actually put in the effort to create this blog, and this is
+the fateful story
 
 ## How it happened
 
@@ -24,64 +17,67 @@ source and I made a contribution to... Drum Rooollll...
 
 Yep! You guessed it!
 
-the documentation.
+the documentation
 
 Kind of underwhelming, I know.
 
 But it was definitely a good way to get started with open source work. It didn't cause me stress
 worrying if it was high enough quality and I leared how to actually open and work a pull request.
 
-The image below is the first PR that I ever opened. It wasn't perfect (later corrections were made)
-and it wasn't anything too special but it was honest work.
-![Time First PR](/images/first_pr_top.png) Basically when I was using the slint (then sixtyfps)
-framework I found a part of the documentation that was confusing to me and I opened a PR that made
-some clarifications.
+Let me show you
+
+The image below is the first PR that I ever opened. ![Time First PR](/images/first_pr_top.png) When
+I was using the Slint (then sixtyfps) framework I found a part of the documentation that was
+confusing to me and I opened a PR that made some clarifications.
+
+- Slint is a GUI framework and language that lets you write UIs in a declarative syntax
 
 ### The result!
 
 ![First PR result](/images/first_pr_middle.png) Woooohoooo!!!!
 
-I was crazy excited for this PR to be merged. I know it seems kinda insignificant but to me it was
-an awesome moment.
+I was crazy excited for this PR to be merged. I probably bragged to my wife about my awesome changes
+to the docs for long enough to get some funny looks.
 
-I probably bragged to my wife about my awesome changes to the docs for long enough to get some funny
-looks
+It seems kinda insignificant, but, to me, it was an awesome moment.
 
 #### And some corrections...
 
 ![First PR Corrections](/images/first_pr_bottom.png)
 
-The slint team members were super nice to work with
+The Slint team members were super nice to work with
 
-### So... why docs??
+### why docs??
 
-For me, this has two major benefits. One is that I can get a feel for how that particular project is
-run. Maybe they have a particular merge strategy and they would prefer if all of the commits are
-squashed. Or maybe something crazy! Who knows!?! There are process details like this that I feel are
-nice to get out of the way with low pressure.
+For me, this has two major benefits.
 
-- These process details are often talked about in a CONTRIBUTING.md file but at the time I didn't
-  really understand what the heck it was talking about until I had actually seen those processes it
-  in my own PRs.
+The first is that I can get a feel for how a particular project is run. They might have a particular
+merge strategy and they prefer if all of the commits are squashed. Or maybe something crazy! There
+are process details like this that I feel are nice to get out of the way with low pressure.
 
-But the second is probably the bigger reason
+- These process details are often talked about in a CONTRIBUTING.md file, but I didn't really
+  understand what the heck it was talking about until I had actually seen those processes it in my
+  own PRs.
 
-I don't want to spend a chunk of my time working on a project when the maintainers are hostile. A
-small change to the docs doesn't take too much time and I know I wont feel hurt (relatively) if it
-essentially becomes wasted time. This has never happened to me and it doesn't seem common but I have
-seen it. I defnitely don't want to have to deal with that.
+But the second is probably the bigger reason.
 
-## But why at all?
+I don't want to spend a chunk of my time working on a project when the maintainers are hostile.
+
+A small change to the docs doesn't take too much time and I know I won't feel hurt (relatively) if
+it essentially becomes wasted time. This has never happened to me and it doesn't seem common, but I
+have seen it. I defnitely don't want to have to start working on a project with hostile maintainers.
+
+## Why at all?
 
 I decided to start contributing to open source projects because I was going to be applying for
 summer internships and I was hoping that open source contributions would look good on a resume and
 in interviews.
 
-And that was honestly the main motivation for the first PR.
+And that was honestly the main motivation for my first PR.
 
-Since then I have found that I genuinely enjoy the challenge of working on new projects and
-unfamiliar codebases. I enjoy seeing other people use and improve on my changes and it is definitely
-a great way to learn and get exposure to a variety of codebases.
+Since then, I have found that I genuinely enjoy the challenge of working on new projects and
+unfamiliar codebases. I enjoy seeing other people use, and improve on my changes. It is definitely a
+great way to learn and get exposure to a variety of codebases.
 
 ## What was the biggest challenge in getting started?
 
@@ -89,36 +85,33 @@ a great way to learn and get exposure to a variety of codebases.
 
 That sums it up pretty well.
 
-I was very afraid of doing something that was just an inconvenience to other developers.<br> I was
-afraid of implementing something incorrectly.<br> I was afraid that I would screw up the
-process.<br> I was afraid of being being out of place.<br>
+I was **afraid** of doing something that was just an inconvenience to other developers.<br> I was
+**afraid** of implementing something incorrectly.<br> I was **afraid** that I would screw up the
+process.<br> I was **afraid** of being out of place.<br>
 
-Luckily, the slint developers were super kind and helpful and made my first experiences with open
+Luckily, the Slint developers were super kind and helpful and made my first experiences with open
 souce work an awesome experience that made me want to do it again.
 
-Also I felt lucky that there was high quality content on youtube that showed the process of opening
-a PR and working with git to the point that I thought...
+I also felt lucky that there was high quality content on youtube that showed the process of opening
+a PR and working with git to the point that I thought
 
-> Yeah. I can do that.
+> "Yeah. I can do that."
 
-## What have been the results
+## The Results
 
-### More work with slint
+The results came in the form of continued pull requests on several open source projects
 
-Since that first PR I've been able to open a few other PR's on the slint project but on these I
-actually dug into the code.
+### Slint
 
-When I was working on these PRs I still had no idea how to grok a codebase that I hadn't personally
-written **_and_** I was fairly new to Rust at the time.
+Since that first PR I've been able to open a few other PR's on the Slint project and actually dig
+into the code. Bit by bit (haha), I was able to find my way around the codebase and find the
+relevant parts of the code.
 
-Slowly, bit by bit (haha), I was able to find my way around the codebase and find the relevant parts
-of the code.
-
-- Funny Side note: This was probably the first time that I really realized how useful "Goto
+- Funny side note: This was probably the first time that I really realized how useful "Goto
   Definition" could be.
 
-One of the code changes that I made that was actually merged was adding some built-in functions to
-the slint language.
+One of the code changes I made that was actually merged was adding some built-in functions to the
+Slint language
 
 ```rust
     Expression::BuiltinFunctionReference(BuiltinFunction::Log, _) => {
@@ -138,28 +131,31 @@ functions were added to be language built-ins.
 
 - Looking back there are things I would change for this PR (mostly involving better error handling).
 
-And again, the slint maintainers were awesoeme to work with and answer my questions. <br>#notanad
+And again, the Slint maintainers were awesoeme to work with and answer my questions. <a>#notanad</a>
 
-After getting this work done something magical happened...
+### ESP-HAL
 
-### Work with ESP-HAL
+The next project I worked on was ESP-HAL, an open source hardware abstraction layer for espressif
+microcontrollers in rust.
 
-My work with esp-hal started after I got my first internship!
+My work on ESP-HAL started after I got my first internship!
 
-Thank you, thank you. You're too kind. Hold the applause please.
+Thank you, thank you. I know. You're too kind. Hold the applause please.
 
-Haha jokes aside I was super happy to have my first internship. I was working as a firmware
+Haha, jokes aside, I was super happy to have my first internship. I was working as a firmware
 engineering intern in C for some internal company tools. It was an awesome opportunity because it
-was a brand new project that myself and another itern built mostly from scratch.
+was a brand new project that another intern and I built mostly from scratch.
 
-While I was working there I started to really fall in love with embedded development and,
-simultaneously, I wanted to add some more Rust to my life.
+While I was working there, I started to really fall in love with embedded development and,
+simultaneously, I wanted to add some more rust to my life.
 
 So that's what I did.
 
+- Follow for more rust-centric articles. [@jrmoulton3](https://twitter.com/jrmoulton3)
+
 I tried getting an LED to blink using a microcontroller that had no existing support in rust.
 
-And wow. I did know what I was in for
+And wow. I did not know what I was in for
 
 It was tons of time
 
@@ -170,21 +166,22 @@ It was tons of time
 - learning how microcontroller cpu's control peripherals (such as GPIO pins)
 - and still digging through datasheets
 
-I spent a very long time trying to figure out how to get support for it and one day it worked!!!
+I spent a very long time trying to figure out how to support it in rust and then one day it
+worked!!!
 
 The LED BLINKED!!!!
 
 It was probably in the top 3 most magical moments of my life.
 
 I had blinked LED's before using an arduino but **_I_** had made this thing work by following a
-datasheet and building periphal access crates and writing to registers and AN LED BLINKED!!!
+datasheet and building periphal access crates and writing to registers and AN L-E-D BLINKED!!!
 
 I probably just ranted about how cool it was for at least 2 hours. After saying "IT WORKS!!" and
 "THE LED BLINKS" for probably the 300th time I knew my wife must truly love me because she was still
 replying with "Wow. Yeah that's really cool."
 
-Unfortunately I can't find the original code that I used to blink the led and figuring it out again
-would involve digging into the datasheet to see exactly what bits need to be set but it would have
+Unfortunately, I can't find the original code that I used to blink the led. Figuring it out again
+would involve digging into the datasheet to see exactly what bits need to be set, but it would have
 started about like this (after finally generating a peripheral access crate from an svd file)
 
 ```rust
@@ -214,7 +211,8 @@ control the pin drive mode and sets another register with the data to set the pi
 All this work led me to find projects that had already built out a lot of support for chips in rust
 in the form of "Hardware Abstraction Layers" or "HALS". So far my favorite of these is the ESP-HAL.
 
-Currently rust is a super exciting language for writing embedded code because of a project called
+The work I did involved implementing one of the greatest things about rust and embedded programming.
+Currently, rust is a super exciting language for writing embedded code because of a project called
 [embedded-hal](https://github.com/rust-embedded/embedded-hal) that defines a set of common traits
 that allow device drivers to be hardware independent!
 
@@ -227,13 +225,8 @@ rust is awesome...
 
 So back to the purpose of this section...
 
-### ESP-HAL.
-
-ESP-HAL is rust support for espressif microcontrollers. It's open source and sponsored by espressif
-with developers actively working on the project.
-
 I was building a device driver for a digital to analog converter
-[DACx0501](https://github.com/jrmoulton/dacxo501) and I worked a bit on the SPI support in ESP-HAL.
+[DACx0501](https://github.com/jrmoulton/dacx0501) and I worked a bit on the SPI support in ESP-HAL.
 
 ```rust
 #[cfg(feature = "eh1")]
@@ -327,8 +320,6 @@ It takes the stream of bytes and chucks them in 64 byte chuncks and then fills t
 with that data and then sets a flag bit on a control register that allows the device to start
 sending data that is in the registers.
 
-- The code I wrote was later improved on
-
 Oh, and then it totally worked for me!
 
 I used it to test/finish implementing my driver for the digital to analog converter.
@@ -339,15 +330,15 @@ I guess I can also count my personal projects as open source... since they are..
 
 ### tree-sitter-slint
 
-More slint stuff!!
+More Slint stuff!!
 
 This was just a project that I started as a quality of life improvement when I was frustrated by the
-complete lack of color in the slint language.
+complete lack of color in the Slint language.
 
 Tree-sitter is a tool that allows you to write a language gramer in javascript and is primarily used
 for syntax highliting on code (it's what I'm using to highlight the code on this website).
 
-So I wrote a grammar that handles slint code!
+So I wrote a grammar that handles Slint code!
 
 (The code below isn't fully functional. Just meant to show off the syntax highlighting)
 
@@ -481,9 +472,10 @@ before)
 
 ## Closing thoughts
 
-I keep learning a ton by contributing to open source projects and I don't plan on stopping.
+My open source work (and programming in general) has already been a long journey, but I'm just
+begginning. I've learned so much and there's no way I'm stopping.
 
-But even with everything I'm learning I'm highly suspicious that in the future any new project I
+But even with everything I'm learning, I'm highly suspicious that, in the future, any new project I
 contribute to will probably first receive a new contributor to the documentation.
 
 ```date
