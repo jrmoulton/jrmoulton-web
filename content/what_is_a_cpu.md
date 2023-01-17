@@ -1,3 +1,7 @@
+``` metadata
+develop = true
+```
+
 A cpu is a bunch of transistors. 
 
 Transistors are little on/off switches that can be controlled (these are created by combining different kinds of silicon together). Those switches can be combined to create logic gates. 

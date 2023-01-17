@@ -10,6 +10,7 @@ pub struct Article {
     pub file_name_cap: String,
     pub file_name: String,
     pub header: &'static str,
+    pub footer: &'static str,
     pub theme_divs: String,
     pub page_section: String,
 }
@@ -36,6 +37,7 @@ impl Serialize for Article {
         state.serialize_field("file_name_cap", &self.file_name_cap)?;
         state.serialize_field("file_name", &self.file_name)?;
         state.serialize_field("header", &self.header)?;
+        state.serialize_field("footer", &self.footer)?;
         state.serialize_field("theme_divs", &self.theme_divs)?;
         state.serialize_field("page_section", &self.page_section)?;
         state.end()

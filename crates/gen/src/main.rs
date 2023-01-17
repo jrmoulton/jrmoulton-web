@@ -1,17 +1,19 @@
 mod article;
+mod metadata;
 mod theme;
 
 use std::sync::{Arc, Mutex};
 
 use article::{Article, ArticlePreview, LatestArticles};
 use handlebars::Handlebars;
+use metadata::Metadata;
 use pulldown_cmark::{CodeBlockKind, Event};
 use rayon::prelude::*;
 use theme::{Theme, Themes};
 
 fn main() {
     // delete the current build folder
-    let _ = std::fs::remove_dir_all("build");
+    // let _ = std::fs::remove_dir_all("build");
 
     // Create the build folder
     let _ = fs_extra::dir::create("build/", false);
@@ -41,10 +43,18 @@ fn main() {
         )
         .expect("failed to copy icon to build folder");
     }
+    for file in vec!["resume.pdf"] {
+        fs_extra::file::copy(
+            std::path::PathBuf::from(format!("files/{file}")),
+            format!("build/files/{}", file),
+            &file_copy_options,
+        )
+        .expect(&format!("Failed to copy file {file}"));
+    }
 
     // Register the templates
     let mut templ_reg = Handlebars::new();
-    for template in vec!["theme_div", "article", "article_preview", "index"] {
+    for template in vec!["theme_div", "article", "article_preview", "index", "blurb"] {
         templ_reg
             .register_template_string(
                 template,
@@ -89,20 +99,37 @@ fn main() {
         file_name_cap: "Jared Moutlon".to_string(),
         file_name: "index".to_string(),
         header: include_str!("../../../templates/header.html"),
+        footer: include_str!("../../../templates/footer.html"),
         theme_divs: themes.theme_divs(&templ_reg),
-        page_section: String::from(r#"<div class="previews">"#),
+        page_section: String::new(),
     };
+    let mut articles_page = index_article.clone();
+    index_article
+        .page_section
+        .push_str(include_str!("../../../templates/blurb.html"));
+    index_article
+        .page_section
+        .push_str(r#"<div class="previews">"#);
+    articles_page
+        .page_section
+        .push_str(r#"<div class="previews">"#);
     for article in latest_articles.articles {
-        index_article.page_section.push_str(
-            &templ_reg
-                .render("article_preview", &ArticlePreview::from(article))
-                .unwrap(),
-        );
+        let article_string = templ_reg
+            .render("article_preview", &ArticlePreview::from(article.clone()))
+            .unwrap();
+        index_article.page_section.push_str(&article_string);
+        articles_page.page_section.push_str(&article_string);
     }
     index_article.page_section.push_str("</div>");
+    articles_page.page_section.push_str("</div>");
     std::fs::write(
         "build/index.html",
         templ_reg.render("article", &index_article).unwrap(),
+    )
+    .unwrap();
+    std::fs::write(
+        "build/articles.html",
+        templ_reg.render("article", &articles_page).unwrap(),
     )
     .unwrap();
 }
@@ -119,6 +146,7 @@ fn write_articles(templ_reg: &mut Handlebars, themes: &mut Themes) -> LatestArti
 
     files.par_iter().for_each(|file| {
         let mut date = dateparser::parse("1/1/2000").unwrap();
+        let mut publish = true;
 
         let article_string = file.as_ref().unwrap();
 
@@ -144,6 +172,13 @@ fn write_articles(templ_reg: &mut Handlebars, themes: &mut Themes) -> LatestArti
                     .into(),
                 )
             },
+            Event::Text(toml) if next_lang == "metadata" => {
+                let metadata: Metadata = toml::from_str(&toml).unwrap();
+                if metadata.develop {
+                    publish = false;
+                }
+                Event::SoftBreak
+            },
             Event::Text(code) if !next_lang.is_empty() => {
                 let lang = tree_painter::Lang::from_name(&next_lang).unwrap();
                 Event::Html(renderer.render(&lang, code.as_bytes()).unwrap().into())
@@ -165,28 +200,30 @@ fn write_articles(templ_reg: &mut Handlebars, themes: &mut Themes) -> LatestArti
             },
             _ => event,
         });
-
         let mut mark_out = String::new();
         pulldown_cmark::html::push_html(&mut mark_out, parser);
 
-        // Write the article
-        let file_name = article_string.path();
-        let file_name = file_name.file_stem().unwrap().to_str().unwrap();
-        let file_name_cap = titlecase::titlecase(&file_name.replace('_', " "));
+        if publish || cfg!(debug_assertions) {
+            // Write the article
+            let file_name = article_string.path();
+            let file_name = file_name.file_stem().unwrap().to_str().unwrap();
+            let file_name_cap = titlecase::titlecase(&file_name.replace('_', " "));
 
-        let article = Article {
-            head: include_str!("../../../templates/head.html"),
-            date,
-            file_name_cap,
-            file_name: file_name.to_string(),
-            header: include_str!("../../../templates/header.html"),
-            theme_divs: themes.theme_divs(templ_reg),
-            page_section: mark_out,
-        };
-        let final_output = templ_reg.render("article", &article).unwrap();
-        let mut latest_articles = latest_articles.lock().unwrap();
-        latest_articles.add_if_latest(article);
-        std::fs::write(format!("build/articles/{}.html", file_name), final_output).unwrap();
+            let article = Article {
+                head: include_str!("../../../templates/head.html"),
+                date,
+                file_name_cap,
+                file_name: file_name.to_string(),
+                header: include_str!("../../../templates/header.html"),
+                footer: include_str!("../../../templates/footer.html"),
+                theme_divs: themes.theme_divs(templ_reg),
+                page_section: mark_out,
+            };
+            let final_output = templ_reg.render("article", &article).unwrap();
+            let mut latest_articles = latest_articles.lock().unwrap();
+            latest_articles.add_if_latest(article);
+            std::fs::write(format!("build/articles/{}.html", file_name), final_output).unwrap();
+        }
     });
     let lock = Arc::try_unwrap(latest_articles).expect("Lock still has multiple owners");
     lock.into_inner().expect("Mutex cannot be locked")

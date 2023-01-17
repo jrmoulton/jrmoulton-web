@@ -106,6 +106,8 @@ pub enum Lang {
     CSharp,
     #[cfg(feature = "tree-sitter-css")]
     Css,
+    #[cfg(feature = "tree-sitter-slint")]
+    Slint,
     #[cfg(feature = "tree-sitter-dockerfile")]
     Docker,
     #[cfg(feature = "tree-sitter-go")]
@@ -191,6 +193,8 @@ impl Lang {
             "cs" => Some(Lang::CSharp),
             #[cfg(feature = "tree-sitter-css")]
             "css" => Some(Lang::Css),
+            #[cfg(feature = "tree-sitter-slint")]
+            "slint" => Some(Lang::Slint),
             #[cfg(feature = "tree-sitter-cpp")]
             "cpp" | "cc" | "cxx" => Some(Lang::Cpp),
             #[cfg(feature = "tree-sitter-dockerfile")]
@@ -255,6 +259,8 @@ impl Lang {
             "cs" => Some(Lang::CSharp),
             #[cfg(feature = "tree-sitter-css")]
             "css" => Some(Lang::Css),
+            #[cfg(feature = "tree-sitter-slint")]
+            "slint" => Some(Lang::Slint),
             #[cfg(feature = "tree-sitter-cpp")]
             "cpp" | "cc" | "cxx" => Some(Lang::Cpp),
             #[cfg(feature = "tree-sitter-dockerfile")]
@@ -356,6 +362,14 @@ impl Lang {
                 "",
             )
             .expect("loading tree-sitter-css"),
+            #[cfg(feature = "tree-sitter-slint")]
+            Lang::Slint => HighlightConfiguration::new(
+                tree_sitter_slint::language(),
+                tree_sitter_slint::HIGHLIGHTS_QUERY,
+                "",
+                "",
+            )
+            .expect("loading tree-sitter-slint"),
             #[cfg(feature = "tree-sitter-dockerfile")]
             Lang::Docker => {
                 HighlightConfiguration::new(tree_sitter_dockerfile::language(), "", "", "")
