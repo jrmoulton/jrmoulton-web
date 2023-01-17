@@ -47,7 +47,7 @@ async fn main() {
 
     if cfg!(debug_assertions) {
         tokio::join!(
-            serve(using_serve_dir(), 80),
+            serve(using_serve_dir(), ports.https),
             async_watch("content/"),
             async_watch("crates/gen/src"),
             async_watch("crates/tree-painter/src"),
@@ -57,7 +57,10 @@ async fn main() {
             async_watch("templates/"),
         );
     } else {
-        tokio::join!(serve(using_serve_dir(), 80), async_watch("content/"),);
+        tokio::join!(
+            serve(using_serve_dir(), ports.https),
+            async_watch("content/"),
+        );
     }
 }
 
