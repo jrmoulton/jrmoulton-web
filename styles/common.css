@@ -226,10 +226,11 @@ a,
   margin: 1rem auto;
 }
 
-.page-section p img {
-  max-width: var(--content-width);
+.page-section img {
+  max-width: 100%;
   margin: 1rem auto;
 }
+
 
 .previews {
   margin: 2rem auto;
