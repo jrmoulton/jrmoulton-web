@@ -5,6 +5,7 @@ mod theme;
 use std::sync::{Arc, Mutex};
 
 use article::{Article, ArticlePreview, LatestArticles};
+use chrono::format;
 use handlebars::Handlebars;
 use metadata::Metadata;
 use pulldown_cmark::{CodeBlockKind, Event};
@@ -180,8 +181,9 @@ fn write_articles(templ_reg: &mut Handlebars, themes: &mut Themes) -> LatestArti
                 Event::SoftBreak
             },
             Event::Text(code) if !next_lang.is_empty() => {
-                let lang = tree_painter::Lang::from_name(&next_lang).unwrap();
-                Event::Html(renderer.render(&lang, code.as_bytes()).unwrap().into())
+                let lang = tree_painter::Lang::from_name(&next_lang)
+                    .unwrap_or_else(|| panic!("lange {next_lang}"));
+                Event::Html(renderer.render(lang, code.as_bytes()).unwrap().into())
             },
             Event::End(pulldown_cmark::Tag::CodeBlock(CodeBlockKind::Fenced(lang)))
                 if lang.to_string() == next_lang =>

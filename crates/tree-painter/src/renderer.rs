@@ -3,7 +3,7 @@ use std::{collections::HashMap, fmt::Write};
 use colors_transform::Color;
 use tree_sitter_highlight::{Highlight, HighlightConfiguration, Highlighter, HtmlRenderer};
 
-use crate::{theme, Error, Lang};
+use crate::{Error, Lang, theme};
 
 pub(crate) const HIGHLIGHT_NAMES: [&str; 59] = [
     "annotation",
@@ -173,18 +173,18 @@ impl Renderer {
     }
 
     /// Render `source` based on the `lang`.
-    pub fn render(&mut self, lang: &Lang, source: &[u8]) -> Result<String, Error> {
+    pub fn render(&mut self, lang: Lang, source: &[u8]) -> Result<String, Error> {
         fn foo<'a>(_: &str) -> Option<&'a HighlightConfiguration> {
             None
         }
 
-        let config = match self.configs.get(lang) {
+        let config = match self.configs.get(&lang) {
             Some(config) => config,
             None => {
                 let mut config = lang.config();
                 config.configure(&HIGHLIGHT_NAMES);
-                self.configs.insert(lang.clone(), config);
-                self.configs.get(lang).unwrap()
+                self.configs.insert(lang, config);
+                self.configs.get(&lang).unwrap()
             },
         };
 

@@ -92,7 +92,7 @@ pub mod themes {
 }
 
 /// Languages supported for syntax highlighting.
-#[derive(Eq, Hash, PartialEq, Clone, Debug)]
+#[derive(Eq, Hash, PartialEq, Clone, Debug, Copy)]
 pub enum Lang {
     // #[cfg(feature = "tree-sitter-bash")]
     // Bash,
@@ -112,8 +112,8 @@ pub enum Lang {
     Docker,
     #[cfg(feature = "tree-sitter-go")]
     Go,
-    #[cfg(feature = "tree-sitter-haskell")]
-    Haskell,
+    // #[cfg(feature = "tree-sitter-haskell")]
+    // Haskell,
     // #[cfg(feature = "tree-sitter-html")]
     // Html,
     #[cfg(feature = "tree-sitter-java")]
@@ -124,18 +124,18 @@ pub enum Lang {
     Json,
     // #[cfg(feature = "tree-sitter-julia")]
     // Julia,
-    #[cfg(feature = "tree-sitter-kotlin")]
-    Kotlin,
-    #[cfg(feature = "tree-sitter-latex")]
-    Latex,
-    #[cfg(feature = "tree-sitter-lua")]
-    Lua,
+    // #[cfg(feature = "tree-sitter-kotlin")]
+    // Kotlin,
+    // #[cfg(feature = "tree-sitter-latex")]
+    // Latex,
+    // #[cfg(feature = "tree-sitter-lua")]
+    // Lua,
     #[cfg(feature = "tree-sitter-md")]
     Markdown,
-    #[cfg(feature = "tree-sitter-nix")]
-    Nix,
-    #[cfg(feature = "tree-sitter-ocaml")]
-    Ocaml,
+    // #[cfg(feature = "tree-sitter-nix")]
+    // Nix,
+    // #[cfg(feature = "tree-sitter-ocaml")]
+    // Ocaml,
     // #[cfg(feature = "tree-sitter-perl")]
     // Perl,
     // #[cfg(feature = "tree-sitter-php")]
@@ -152,8 +152,8 @@ pub enum Lang {
     // Swift,
     #[cfg(feature = "tree-sitter-typescript")]
     Ts,
-    #[cfg(feature = "tree-sitter-zig")]
-    Zig,
+    // #[cfg(feature = "tree-sitter-zig")]
+    // Zig,
 }
 
 impl Lang {
@@ -203,8 +203,8 @@ impl Lang {
             // "clj" | "cljs" | "cljc" => Some(Lang::Clojure),
             #[cfg(feature = "tree-sitter-go")]
             "go" => Some(Lang::Go),
-            #[cfg(feature = "tree-sitter-haskell")]
-            "hs" | "lhs" => Some(Lang::Haskell),
+            // #[cfg(feature = "tree-sitter-haskell")]
+            // "hs" | "lhs" => Some(Lang::Haskell),
             // #[cfg(feature = "tree-sitter-html")]
             // "html" => Some(Lang::Html),
             #[cfg(feature = "tree-sitter-java")]
@@ -215,18 +215,18 @@ impl Lang {
             "json" => Some(Lang::Json),
             // #[cfg(feature = "tree-sitter-julia")]
             // "jl" => Some(Lang::Julia),
-            #[cfg(feature = "tree-sitter-kotlin")]
-            "kt" => Some(Lang::Kotlin),
-            #[cfg(feature = "tree-sitter-latex")]
-            "tex" => Some(Lang::Latex),
-            #[cfg(feature = "tree-sitter-lua")]
-            "lua" => Some(Lang::Lua),
+            // #[cfg(feature = "tree-sitter-kotlin")]
+            // "kt" => Some(Lang::Kotlin),
+            // #[cfg(feature = "tree-sitter-latex")]
+            // "tex" => Some(Lang::Latex),
+            // #[cfg(feature = "tree-sitter-lua")]
+            // "lua" => Some(Lang::Lua),
             #[cfg(feature = "tree-sitter-md")]
             "md" => Some(Lang::Markdown),
-            #[cfg(feature = "tree-sitter-nix")]
-            "nix" => Some(Lang::Nix),
-            #[cfg(feature = "tree-sitter-ocaml")]
-            "ml" => Some(Lang::Ocaml),
+            // #[cfg(feature = "tree-sitter-nix")]
+            // "nix" => Some(Lang::Nix),
+            // #[cfg(feature = "tree-sitter-ocaml")]
+            // "ml" => Some(Lang::Ocaml),
             // #[cfg(feature = "tree-sitter-perl")]
             // "pl" => Some(Lang::Perl),
             // #[cfg(feature = "tree-sitter-php")]
@@ -243,8 +243,8 @@ impl Lang {
             // "swift" => Some(Lang::Swift),
             #[cfg(feature = "tree-sitter-typescript")]
             "ts" => Some(Lang::Ts),
-            #[cfg(feature = "tree-sitter-zig")]
-            "zig" => Some(Lang::Zig),
+            // #[cfg(feature = "tree-sitter-zig")]
+            // "zig" => Some(Lang::Zig),
             &_ => None,
         }
     }
@@ -269,8 +269,8 @@ impl Lang {
             // "clj" | "cljs" | "cljc" => Some(Lang::Clojure),
             #[cfg(feature = "tree-sitter-go")]
             "go" => Some(Lang::Go),
-            #[cfg(feature = "tree-sitter-haskell")]
-            "hs" | "lhs" => Some(Lang::Haskell),
+            // #[cfg(feature = "tree-sitter-haskell")]
+            // "hs" | "lhs" => Some(Lang::Haskell),
             // #[cfg(feature = "tree-sitter-html")]
             // "html" => Some(Lang::Html),
             #[cfg(feature = "tree-sitter-java")]
@@ -281,18 +281,18 @@ impl Lang {
             "json" => Some(Lang::Json),
             // #[cfg(feature = "tree-sitter-julia")]
             // "jl" => Some(Lang::Julia),
-            #[cfg(feature = "tree-sitter-kotlin")]
-            "kotlin" => Some(Lang::Kotlin),
-            #[cfg(feature = "tree-sitter-latex")]
-            "latex" => Some(Lang::Latex),
-            #[cfg(feature = "tree-sitter-lua")]
-            "lua" => Some(Lang::Lua),
+            // #[cfg(feature = "tree-sitter-kotlin")]
+            // "kotlin" => Some(Lang::Kotlin),
+            // #[cfg(feature = "tree-sitter-latex")]
+            // "latex" => Some(Lang::Latex),
+            // #[cfg(feature = "tree-sitter-lua")]
+            // "lua" => Some(Lang::Lua),
             #[cfg(feature = "tree-sitter-md")]
             "markdown" => Some(Lang::Markdown),
-            #[cfg(feature = "tree-sitter-nix")]
-            "nix" => Some(Lang::Nix),
-            #[cfg(feature = "tree-sitter-ocaml")]
-            "ml" => Some(Lang::Ocaml),
+            // #[cfg(feature = "tree-sitter-nix")]
+            // "nix" => Some(Lang::Nix),
+            // #[cfg(feature = "tree-sitter-ocaml")]
+            // "ml" => Some(Lang::Ocaml),
             // #[cfg(feature = "tree-sitter-perl")]
             // "pl" => Some(Lang::Perl),
             // #[cfg(feature = "tree-sitter-php")]
@@ -309,8 +309,8 @@ impl Lang {
             // "swift" => Some(Lang::Swift),
             #[cfg(feature = "tree-sitter-typescript")]
             "typescript" => Some(Lang::Ts),
-            #[cfg(feature = "tree-sitter-zig")]
-            "zig" => Some(Lang::Zig),
+            // #[cfg(feature = "tree-sitter-zig")]
+            // "zig" => Some(Lang::Zig),
             &_ => None,
         }
     }
@@ -327,7 +327,8 @@ impl Lang {
             // .expect("loading tree-sitter-bash"),
             #[cfg(feature = "tree-sitter-c")]
             Lang::C => HighlightConfiguration::new(
-                tree_sitter_c::language(),
+                tree_sitter_c::LANGUAGE.into(),
+                "C",
                 tree_sitter_c::HIGHLIGHT_QUERY,
                 "",
                 "",
@@ -348,7 +349,8 @@ impl Lang {
             // .expect("loading tree-sitter-cpp"),
             #[cfg(feature = "tree-sitter-cpp")]
             Lang::Cpp => HighlightConfiguration::new(
-                tree_sitter_cpp::language(),
+                tree_sitter_cpp::LANGUAGE.into(),
+                "CPP",
                 tree_sitter_cpp::HIGHLIGHT_QUERY,
                 "",
                 "",
@@ -356,7 +358,8 @@ impl Lang {
             .expect("loading tree-sitter-cpp"),
             #[cfg(feature = "tree-sitter-css")]
             Lang::Css => HighlightConfiguration::new(
-                tree_sitter_css::language(),
+                tree_sitter_css::LANGUAGE.into(),
+                "CSS",
                 tree_sitter_css::HIGHLIGHTS_QUERY,
                 "",
                 "",
@@ -364,8 +367,11 @@ impl Lang {
             .expect("loading tree-sitter-css"),
             #[cfg(feature = "tree-sitter-slint")]
             Lang::Slint => HighlightConfiguration::new(
-                tree_sitter_slint::language(),
-                tree_sitter_slint::HIGHLIGHTS_QUERY,
+                tree_sitter_slint::LANGUAGE.into(),
+                "Slint",
+                include_str!(
+                    "/Users/jaredmoulton/.config/helix/runtime/queries/slint/highlights.scm"
+                ),
                 "",
                 "",
             )
@@ -383,14 +389,14 @@ impl Lang {
                 "",
             )
             .expect("loading tree-sitter-go"),
-            #[cfg(feature = "tree-sitter-haskell")]
-            Lang::Haskell => HighlightConfiguration::new(
-                tree_sitter_haskell::language(),
-                tree_sitter_haskell::HIGHLIGHTS_QUERY,
-                "",
-                "",
-            )
-            .expect("loading tree-sitter-haskell"),
+            // #[cfg(feature = "tree-sitter-haskell")]
+            // Lang::Haskell => HighlightConfiguration::new(
+            //     tree_sitter_haskell::language(),
+            //     tree_sitter_haskell::HIGHLIGHTS_QUERY,
+            //     "",
+            //     "",
+            // )
+            // .expect("loading tree-sitter-haskell"),
             // #[cfg(feature = "tree-sitter-html")]
             // Lang::Html => HighlightConfiguration::new(
             //     tree_sitter_html::language(),
@@ -401,8 +407,9 @@ impl Lang {
             // .expect("loading tree-sitter-html"),
             #[cfg(feature = "tree-sitter-java")]
             Lang::Java => HighlightConfiguration::new(
-                tree_sitter_java::language(),
-                tree_sitter_java::HIGHLIGHT_QUERY,
+                tree_sitter_java::LANGUAGE.into(),
+                "Java",
+                tree_sitter_java::HIGHLIGHTS_QUERY,
                 "",
                 "",
             )
@@ -423,9 +430,9 @@ impl Lang {
                 "",
             )
             .expect("loading tree-sitter-json"),
-            #[cfg(feature = "tree-sitter-kotlin")]
-            Lang::Kotlin => HighlightConfiguration::new(tree_sitter_kotlin::language(), "", "", "")
-                .expect("loading tree-sitter-md"),
+            // #[cfg(feature = "tree-sitter-kotlin")]
+            // Lang::Kotlin => HighlightConfiguration::new(tree_sitter_kotlin::language(), "", "",
+            // "")     .expect("loading tree-sitter-md"),
             // #[cfg(feature = "tree-sitter-julia")]
             // Lang::Julia => HighlightConfiguration::new(
             //     tree_sitter_julia::language(),
@@ -434,12 +441,12 @@ impl Lang {
             //     "",
             // )
             // .expect("loading tree-sitter-julia"),
-            #[cfg(feature = "tree-sitter-latex")]
-            Lang::Latex => HighlightConfiguration::new(tree_sitter_latex::language(), "", "", "")
-                .expect("loading tree-sitter-json"),
-            #[cfg(feature = "tree-sitter-lua")]
-            Lang::Lua => HighlightConfiguration::new(tree_sitter_lua::language(), "", "", "")
-                .expect("loading tree-sitter-lua"),
+            // #[cfg(feature = "tree-sitter-latex")]
+            // Lang::Latex => HighlightConfiguration::new(tree_sitter_latex::language(), "", "", "")
+            //     .expect("loading tree-sitter-json"),
+            // #[cfg(feature = "tree-sitter-lua")]
+            // Lang::Lua => HighlightConfiguration::new(tree_sitter_lua::language(), "", "", "")
+            //     .expect("loading tree-sitter-lua"),
             #[cfg(feature = "tree-sitter-md")]
             Lang::Markdown => HighlightConfiguration::new(
                 tree_sitter_md::language(),
@@ -448,22 +455,22 @@ impl Lang {
                 "",
             )
             .expect("loading tree-sitter-md"),
-            #[cfg(feature = "tree-sitter-nix")]
-            Lang::Nix => HighlightConfiguration::new(
-                tree_sitter_nix::language(),
-                tree_sitter_nix::HIGHLIGHTS_QUERY,
-                "",
-                "",
-            )
-            .expect("loading tree-sitter-ocaml"),
-            #[cfg(feature = "tree-sitter-ocaml")]
-            Lang::Ocaml => HighlightConfiguration::new(
-                tree_sitter_ocaml::language_ocaml(),
-                tree_sitter_ocaml::HIGHLIGHTS_QUERY,
-                "",
-                "",
-            )
-            .expect("loading tree-sitter-ocaml"),
+            // #[cfg(feature = "tree-sitter-nix")]
+            // Lang::Nix => HighlightConfiguration::new(
+            //     tree_sitter_nix::language(),
+            //     tree_sitter_nix::HIGHLIGHTS_QUERY,
+            //     "",
+            //     "",
+            // )
+            // .expect("loading tree-sitter-ocaml"),
+            // #[cfg(feature = "tree-sitter-ocaml")]
+            // Lang::Ocaml => HighlightConfiguration::new(
+            //     tree_sitter_ocaml::language_ocaml(),
+            //     tree_sitter_ocaml::HIGHLIGHTS_QUERY,
+            //     "",
+            //     "",
+            // )
+            // .expect("loading tree-sitter-ocaml"),
             // #[cfg(feature = "tree-sitter-perl")]
             // Lang::Perl => HighlightConfiguration::new(
             //     tree_sitter_perl::language(),
@@ -498,7 +505,8 @@ impl Lang {
             // .expect("loading tree-sitter-ruby"),
             #[cfg(feature = "tree-sitter-rust")]
             Lang::Rust => HighlightConfiguration::new(
-                tree_sitter_rust::language(),
+                tree_sitter_rust::LANGUAGE.into(),
+                "Rust",
                 include_str!("../custom_highlights/rust.scm"),
                 "",
                 "",
@@ -528,14 +536,17 @@ impl Lang {
                 tree_sitter_typescript::LOCALS_QUERY,
             )
             .expect("loading tree-sitter-typescript"),
-            #[cfg(feature = "tree-sitter-zig")]
-            Lang::Zig => HighlightConfiguration::new(
-                tree_sitter_zig::language(),
-                tree_sitter_zig::HIGHLIGHTS_QUERY,
-                tree_sitter_zig::INJECTIONS_QUERY,
-                "",
-            )
-            .expect("loading tree-sitter-zig"),
+            // #[cfg(feature = "tree-sitter-zig")]
+            // Lang::Zig => HighlightConfiguration::new(
+            //     tree_sitter_zig::language(),
+            //     tree_sitter_zig::HIGHLIGHTS_QUERY,
+            //     tree_sitter_zig::INJECTIONS_QUERY,
+            //     "",
+            // )
+            // .expect("loading tree-sitter-zig"),
+            _ => {
+                panic!("uhh.. something wasn't configured for this lang: {self:?}")
+            },
         }
     }
 }
