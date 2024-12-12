@@ -503,9 +503,9 @@ impl Lang {
             // .expect("loading tree-sitter-ruby"),
             #[cfg(feature = "tree-sitter-rust")]
             Lang::Rust => HighlightConfiguration::new(
-                tree_sitter_rust::LANGUAGE.into(),
+                tree_sitter_rust::language(),
                 "Rust",
-                include_str!("../custom_highlights/rust.scm"),
+                tree_sitter_rust::HIGHLIGHTS_QUERY,
                 "",
                 "",
             )

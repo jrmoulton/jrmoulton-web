@@ -321,6 +321,7 @@ blockquote {
   font-family: "JetBrainsMono", MonoSpace;
   font-weight: 300;
   background-color: var(--content-mixed-bg);
+  /* background-color: var(--tsc-main-bg-color); */
   line-height: 0.5;
   overflow-x: auto;
   max-width: calc(var(--content-width) + 20rem);
@@ -330,6 +331,7 @@ blockquote {
 }
 
 .tsc-table {
+  /* color: var(--tsc-main-fg-color); */
   padding-right: 5rem;
   margin: 1rem -0.3rem;
   overflow-x: scroll;
@@ -364,7 +366,7 @@ blockquote {
 
 .tsc-line {
   white-space: pre;
-  color: #ABB2BF;
+  /* color: #ABB2BF; */
 }
 
 .date {
