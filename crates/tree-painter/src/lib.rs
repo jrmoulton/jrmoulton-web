@@ -369,9 +369,7 @@ impl Lang {
             Lang::Slint => HighlightConfiguration::new(
                 tree_sitter_slint::LANGUAGE.into(),
                 "Slint",
-                include_str!(
-                    "/Users/jaredmoulton/.config/helix/runtime/queries/slint/highlights.scm"
-                ),
+                include_str!("../../../queries/slint-highlights.scm"),
                 "",
                 "",
             )
