@@ -173,7 +173,7 @@ impl Renderer {
     }
 
     /// Render `source` based on the `lang`.
-    pub fn render<'a>(&'a mut self, lang: &Lang, source: &[u8]) -> Result<String, Error> {
+    pub fn render(&mut self, lang: &Lang, source: &[u8]) -> Result<String, Error> {
         fn foo<'a>(_: &str) -> Option<&'a HighlightConfiguration> {
             None
         }
