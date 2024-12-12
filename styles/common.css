@@ -226,19 +226,26 @@ blockquote {
 }
 
 .page-section {
-  margin: 1rem auto;
+  /* margin: 1rem auto; */
   padding: 0 2rem;
   line-height: 1.9;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
   flex: 1;
 }
 
-.page-section>* {
-  max-width: var(--content-width);
+.page-section-container {
+  max-width: calc(min(var(--content-width), 100%));
   margin: 1rem auto;
 }
 
-.page-section img {
+.page-section-container>* {
+  max-width: var(--content-width);
+}
+
+.page-section-container img {
   max-width: 100%;
   margin: 1rem auto;
 }
