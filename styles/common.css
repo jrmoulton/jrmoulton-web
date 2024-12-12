@@ -12,6 +12,7 @@ html {
   --link-color: hsl(calc(var(--tsc-function-h) - 5), calc(var(--tsc-function-s) - 10%), calc(var(--tsc-function-l)));
   --hover-color: hsl(calc(var(--tsc-function-h) + 10), calc(var(--tsc-function-s) - 70%), calc(var(--tsc-function-l) - 30%));
   --content-mixed-bg: hsl(var(--tsc-main-bg-color-h), calc(var(--tsc-main-bg-color-s) - 5%), calc(var(--tsc-main-bg-color-l) + 10%));
+  height: 100%;
 }
 
 
@@ -22,6 +23,9 @@ body {
     Roboto, Oxygen-Sans, Ubuntu, Cantarell,
     "Helvetica Neue", sans-serif;
   background-color: var(--tsc-main-bg-color);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 h1 {
@@ -226,6 +230,7 @@ blockquote {
   padding: 0 2rem;
   line-height: 1.9;
   display: block;
+  flex: 1;
 }
 
 .page-section>* {
