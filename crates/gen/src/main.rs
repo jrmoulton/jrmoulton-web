@@ -105,6 +105,7 @@ fn main() {
         page_section: String::new(),
     };
     let mut articles_page = index_article.clone();
+    articles_page.file_name_cap = "Articles".to_string();
     index_article
         .page_section
         .push_str(include_str!("../../../templates/blurb.html"));

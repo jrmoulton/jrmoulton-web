@@ -4,15 +4,13 @@ develop = false
 
 # A new blog
 
-It is time.
-
 A few years ago when I was first learning programming I often thought about how useful it would be
 to write down the information I was learning from the perspective of a newbie because I _**knew**_
 what the actual difficulties were for a beginner.
 
-But, alas, I was too busy learning programming to actually write about it. So now a few years have
+But I was too busy learning programming to actually write about it. So now a few years have
 gone by, I'm not so much of a begginer anymore and this probably isn't going to be as useful as it
-once was... but here we are. And I'm doing it.
+once was... but here we are.
 
 ## The goal
 
@@ -92,8 +90,7 @@ fn write_articles(templ_reg: &mut Handlebars, themes: &mut Themes) -> LatestArti
 ```
 
 This is a bit of code from the generator that renders each article in parallel (it's blazingly fast
-by the way). And that syntax highlighting looks awesome right!?! And it's fully responsive to the
-the website theme.
+by the way), and it's fully responsive to the website theme.
 
 Defnitely one of the first articles that I write in the near future will be how I built this static
 site generator and all of the things I've been figuring out. I've learned how to generate all the

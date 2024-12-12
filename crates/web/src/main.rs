@@ -42,8 +42,8 @@ async fn main() {
     #[allow(unused_variables)]
     let ports = Ports { http: 80, https: 443 };
 
-    #[cfg(not(debug_assertions))]
-    spawn(redirect_http_to_https(ports));
+    // #[cfg(not(debug_assertions))]
+    // spawn(redirect_http_to_https(ports));
 
     if cfg!(debug_assertions) {
         tokio::join!(
