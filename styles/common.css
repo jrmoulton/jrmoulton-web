@@ -237,12 +237,17 @@ blockquote {
 }
 
 .page-section-container {
-  max-width: calc(min(var(--content-width), 100%));
+  /* width: calc(min(var(--content-width), 100%)); */
   margin: 1rem auto;
+  max-width: 100%;
 }
 
-.page-section-container>* {
+.page-section-container>*:not(.tsc-table-bg) {
+  position: relative;
+  text-align: left;
+  margin: 1rem auto;
   max-width: var(--content-width);
+  /* width: var(--content-width); */
 }
 
 .page-section-container img {
@@ -334,12 +339,14 @@ blockquote {
   font-weight: 300;
   background-color: var(--content-mixed-bg);
   /* background-color: var(--tsc-main-bg-color); */
+  margin: 1rem auto;
   line-height: 0.5;
   overflow-x: auto;
-  max-width: calc(var(--content-width) + 20rem);
+  max-width: calc(min(var(--content-width) + 20rem, 95vw));
   padding-bottom: 0.3rem;
   border: 0.5px solid #abb2bf;
   border-radius: 15px;
+  justify-self: center;
 }
 
 .tsc-table {
@@ -349,7 +356,8 @@ blockquote {
   overflow-x: scroll;
   line-height: 120%;
   font-size: 1rem;
-  max-width: calc(min(var(--content-width) + 20rem, 150%));
+  /* max-width: calc(min(var(--content-width) + 10rem, 100%)); */
+  /* width: calc(var(--content-width) + 20rem); */
 }
 
 @media (max-width: 600px) {

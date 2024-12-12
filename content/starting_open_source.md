@@ -1,5 +1,5 @@
 ```metadata
-develop = true
+develop = false
 ```
 
 # My experience starting with open source
