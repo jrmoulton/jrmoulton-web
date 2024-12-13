@@ -242,7 +242,7 @@ blockquote {
   max-width: 100%;
 }
 
-.page-section-container>*:not(.tsc-table-bg) {
+.page-section-container>*:not(.tsc-table-bg):not(.date) {
   position: relative;
   text-align: left;
   margin: 1rem auto;
