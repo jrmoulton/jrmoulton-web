@@ -447,7 +447,8 @@ impl Lang {
             //     .expect("loading tree-sitter-lua"),
             #[cfg(feature = "tree-sitter-md")]
             Lang::Markdown => HighlightConfiguration::new(
-                tree_sitter_md::language(),
+                tree_sitter_md::LANGUAGE.into(),
+                "markdown",
                 tree_sitter_md::HIGHLIGHT_QUERY_BLOCK,
                 tree_sitter_md::INJECTION_QUERY_BLOCK,
                 "",

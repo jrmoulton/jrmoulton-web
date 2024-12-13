@@ -9,7 +9,7 @@ edition = "2021"
 toml = "0.5.10"
 lazy_static = "1.4.0"
 pulldown-cmark = "0.9.2"
-tree-painter = { path = "../tree-painter/", default-features = false, features = ["tree-sitter-rust", "tree-sitter-c", "tree-sitter-cpp", "tree-sitter-java", "tree-sitter-css", "tree-sitter-slint"] }
+tree-painter = { path = "../tree-painter/", default-features = false, features = ["tree-sitter-rust", "tree-sitter-c", "tree-sitter-cpp", "tree-sitter-java", "tree-sitter-css", "tree-sitter-slint", "tree-sitter-md"] }
 titlecase = "2.2.1"
 regex  = "1.7.0"
 dateparser = "0.1.7"
